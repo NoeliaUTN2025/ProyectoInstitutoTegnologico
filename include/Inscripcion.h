@@ -11,7 +11,7 @@ private:
     int m_legajoAlumno;
     int m_idCurso;
     float m_importeAbonado;
-    char m_formaDePago[50];
+    char m_formaDePago[50]; // TODO: //////////////////////////////////////////////////////////
     bool m_eliminado;
     Fecha m_fechaInscripcion;
 
