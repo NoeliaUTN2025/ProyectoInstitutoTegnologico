@@ -1,3 +1,13 @@
+/**
+ * @file Inscripcion.h
+ * @brief Definición de la clase Inscripcion para el sistema académico
+ * @author Diego J D Arias, Noelia Sueldo.
+ * @date 2025-11-02
+ * @version 1.0
+ * @copyright MIT License
+ * @see GestorInscripcion para la clase que gestiona estas instancias.
+ */
+
 #ifndef INSCRIPCION_H
 #define INSCRIPCION_H
 
@@ -11,7 +21,7 @@ private:
     int m_legajoAlumno;
     int m_idCurso;
     float m_importeAbonado;
-    char m_formaDePago[50]; // TODO: //////////////////////////////////////////////////////////
+    char m_formaDePago[50]; // @TODO: Definir largo maximo posible admitido.
     bool m_eliminado;
     Fecha m_fechaInscripcion;
 

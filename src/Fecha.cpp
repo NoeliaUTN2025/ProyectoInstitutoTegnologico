@@ -1,3 +1,15 @@
+/**
+ * @file Fecha.cpp
+ * @brief Implementación de la clase Fecha
+ * @author Diego J D Arias, Noelia Sueldo.
+ * @date 2025-11-02
+ * @version 1.0
+ * @copyright MIT License
+ *
+ * Implementación de los métodos de la clase Fecha.
+ * Incluye validación de fechas, cálculos y manejo de formatos.
+ */
+
 #include "Fecha.h"
 
 

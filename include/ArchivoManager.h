@@ -1,3 +1,17 @@
+/**
+ * @file ArchivoManager.h
+ * @brief Gestor de operaciones de archivo para el sistema académico
+ * @author Diego J D Arias, Noelia Sueldo.
+ * @date 2025-11-02
+ * @version 1.0
+ * @copyright MIT License
+ * @see Alumno, Doncente, Curso e Inscripcion.
+ *
+ * Clase utilitaria para manejar todas las operaciones de lectura/escritura
+ * en archivos binarios del sistema. Proporciona métodos genéricos para
+ * diferentes entidades del sistema académico.
+ */
+
 #ifndef ARCHIVOMANAGER_H
 #define ARCHIVOMANAGER_H
 
