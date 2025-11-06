@@ -37,11 +37,13 @@
 		<Unit filename="include/Curso.h" />
 		<Unit filename="include/Fecha.h" />
 		<Unit filename="include/Inscripcion.h" />
+		<Unit filename="include/Menu.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/ArchivoManager.cpp" />
 		<Unit filename="src/Curso.cpp" />
 		<Unit filename="src/Fecha.cpp" />
 		<Unit filename="src/Inscripcion.cpp" />
+		<Unit filename="src/Menu.cpp" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
