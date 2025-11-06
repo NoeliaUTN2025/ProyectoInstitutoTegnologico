@@ -226,6 +226,7 @@ int ArchivoManager::contarRegistrosCurso(const char* nombreArchivo) {
 }*/
 
 int ArchivoManager::contarRegistrosInscripcion(const char* nombreArchivo) {
+
     FILE* p{fopen(nombreArchivo, "rb")};
 
     if (p == nullptr) {
@@ -237,4 +238,14 @@ int ArchivoManager::contarRegistrosInscripcion(const char* nombreArchivo) {
 
     fclose(p);
     return static_cast<int>(tamanio);
+}
+
+bool ArchivoManager::hacerBackup(const char* nombreArchivo, const char* nombreBackup){
+    //@TODO: implementar la funcion.
+    return false;
+}
+
+bool ArchivoManager::restaurarBackup(const char* nombreBackup, const char* nombreDestino){
+    //@TODO: implementar la funcion.
+    return false;
 }

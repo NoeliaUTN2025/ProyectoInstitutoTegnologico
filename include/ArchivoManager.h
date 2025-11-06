@@ -40,6 +40,9 @@ public:
     int contarRegistrosDocente(const char* nombreArchivo);
     int contarRegistrosCurso(const char* nombreArchivo);*/
     int contarRegistrosInscripcion(const char* nombreArchivo);
+
+    bool hacerBackup(const char* nombreArchivo, const char* nombreBackup);
+    bool restaurarBackup(const char* nombreBackup, const char* nombreDestino);
 };
 
 #endif // ARCHIVOMANAGER_H
