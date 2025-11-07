@@ -18,6 +18,7 @@
 class GestorInscripcion {
 public:
     GestorInscripcion();
+    void nuevaInscripcion();
 
 };
 
