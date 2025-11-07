@@ -17,8 +17,8 @@
 class Menu{
 public:
     Menu() = default;
-
     void start() const;
+    void menuRegistration()const;
 };
 
 #endif // MENU_H

@@ -35,10 +35,38 @@ void Menu::start()const {
             case 1: //menuAlumno(); break;
             case 2: //menuDocente(); break;
             case 3: //menuCurso(); break;
-            case 4: //menuInscripcion(); break;
+            case 4: menuRegistration(); break;
             case 5: //menuReporteInforme(); break;
             case 6: //menuBackupRestauracion(); break;
             case 0: std::cout << "Saliendo...\n"; break;
+            default: std::cout << "Opcion invalida!\n"; system("pause");
+        }
+    } while (opcion != 0);
+}
+
+void Menu::menuRegistration()const {
+    int opcion;
+    do {
+        system("cls");
+        std::cout << "================================================\n";
+        std::cout << "            GESTION - INCRIPCION\n";
+        std::cout << "================================================\n";
+        std::cout << "1. Nueva inscripción\n";
+        std::cout << "2. Buscar inscripciones por alumno\n";  //@TODO: definir
+        std::cout << "3. Buscar inscripciones por docente\n";
+        std::cout << "4. Buscar inscripciones por curso\n";
+        std::cout << "5. Dar de baja inscripción\n";
+        std::cout << "0. Volver al menú principal\n";
+        std::cin >> opcion;
+
+        switch (opcion) {
+            case 1: //@TODO: definir
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 0: break;
             default: std::cout << "Opcion invalida!\n"; system("pause");
         }
     } while (opcion != 0);
