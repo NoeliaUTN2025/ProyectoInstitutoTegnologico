@@ -15,23 +15,21 @@
 #include <iostream>
 
 void Menu::start()const {
-    int opcion;
+    int option;
+    std::string menuOptions[]{
+        "SISTEMA DE GESTION - INSTITUTO TECNOLOGICO", "1. Gestion de Alumnos",
+        "2. Gestion de Docentes", "3. Gestion de Cursos",
+        "4. Gestion de Inscripciones", "5. Reportes y Consultas"
+        "6. Copias de Seguridad", "0. Salir", "Seleccione una opcion: "};
+
+        int arrayLength{ sizeof(menuOptions) / sizeof(std::string) };
+
     do {
         system("cls");
-        std::cout << "================================================\n";
-        std::cout << "   SISTEMA DE GESTION - INSTITUTO TECNOLOGICO\n";
-        std::cout << "================================================\n";
-        std::cout << "1. Gestion de Alumnos\n";
-        std::cout << "2. Gestion de Docentes\n";
-        std::cout << "3. Gestion de Cursos\n";
-        std::cout << "4. Gestion de Inscripciones\n";
-        std::cout << "5. Reportes y Consultas\n";
-        std::cout << "6. Copias de Seguridad\n";
-        std::cout << "0. Salir\n";
-        std::cout << "Seleccione una opcion: ";
-        std::cin >> opcion;
+        draw(menuOptions, arrayLength);
+        std::cin >> option;
 
-        switch (opcion) {
+        switch (option) {
             case 1: //menuAlumno(); break;
             case 2: //menuDocente(); break;
             case 3: //menuCurso(); break;
@@ -41,25 +39,26 @@ void Menu::start()const {
             case 0: std::cout << "Saliendo...\n"; break;
             default: std::cout << "Opcion invalida!\n"; system("pause");
         }
-    } while (opcion != 0);
+    } while (option != 0);
 }
 
 void Menu::menuRegistration()const {
-    int opcion;
+    int option;
+
+    std::string menuOptions[]{
+        "GESTION - INCRIPCION", "1. Nueva inscripción",
+        "2. Buscar inscripciones por alumno", "3. Buscar inscripciones por docente",
+        "4. Buscar inscripciones por curso", "5. Dar de baja inscripción",
+        "0. Volver al menú principal" };
+
+        int arrayLength{ sizeof(menuOptions) / sizeof(std::string) };
+
     do {
         system("cls");
-        std::cout << "================================================\n";
-        std::cout << "            GESTION - INCRIPCION\n";
-        std::cout << "================================================\n";
-        std::cout << "1. Nueva inscripción\n";
-        std::cout << "2. Buscar inscripciones por alumno\n";  //@TODO: definir
-        std::cout << "3. Buscar inscripciones por docente\n";
-        std::cout << "4. Buscar inscripciones por curso\n";
-        std::cout << "5. Dar de baja inscripción\n";
-        std::cout << "0. Volver al menú principal\n";
-        std::cin >> opcion;
+        draw(menuOptions, arrayLength);
+        std::cin >> option;
 
-        switch (opcion) {
+        switch (option) {
             case 1: //@TODO: definir
             case 2:
             case 3:
@@ -69,5 +68,16 @@ void Menu::menuRegistration()const {
             case 0: break;
             default: std::cout << "Opcion invalida!\n"; system("pause");
         }
-    } while (opcion != 0);
+    } while (option != 0);
+}
+
+void Menu::draw(const std::string* options, int arrayLength) const {
+
+    std::cout << "================================================" << '\n';
+    for(int i{0}; i < arrayLength; ++i){
+        std::cout << options[i] << '\n';
+        if (i == 0){
+            std::cout << "================================================\n" << '\n';
+        }
+    }
 }
