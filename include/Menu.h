@@ -19,7 +19,12 @@ class Menu{
 public:
     Menu() = default;
     void start() const;
+    void menuStudent()const;
+    void menuTeacher() const;
+    void menuCourse() const;
     void menuRegistration()const;
+    void menuReports() const;
+    void menuBackup() const;
     void draw(const std::string* options, int arrayLength) const;
 };
 
