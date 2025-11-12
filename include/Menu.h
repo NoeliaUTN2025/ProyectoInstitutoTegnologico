@@ -12,6 +12,7 @@
 
 #ifndef MENU_H
 #define MENU_H
+#include <string>
 
 
 class Menu{
@@ -19,6 +20,7 @@ public:
     Menu() = default;
     void start() const;
     void menuRegistration()const;
+    void draw(const std::string* options, int arrayLength) const;
 };
 
 #endif // MENU_H
