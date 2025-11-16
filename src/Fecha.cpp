@@ -45,6 +45,19 @@ void Fecha::setAnio(int anio) {
     m_anio = anio;
 }
 
-std::string Fecha::toString() const {
-    return std::to_string(m_dia) + "/" + std::to_string(m_mes) + "/" + std::to_string(m_anio);
+/**
+ * @brief Encargado de formatear,
+ *
+ * @param funcion que se encarga de dar formato a la fecha del sistema de gestion
+ * @return std::string
+ */
+
+std::string Fecha::mostrar() const {
+    std::string fecha{
+        std::to_string(m_dia) + "/" +
+        std::to_string(m_mes) + "/" +
+        std::to_string(m_anio)
+        };
+
+    return fecha;
 }
