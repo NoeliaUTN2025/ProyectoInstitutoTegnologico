@@ -11,6 +11,7 @@
 #include "GestorInscripcion.h"
 #include <iostream>
 #include <string>
+#include <iomanip>
 
 
 GestorInscripcion::GestorInscripcion() {
@@ -30,7 +31,6 @@ int GestorInscripcion::obtenerUltimoId() {
     }
     return ultimoID + 1;
 }
-
 
 void GestorInscripcion::nuevaInscripcion() {
     system("cls");
@@ -62,5 +62,25 @@ void GestorInscripcion::nuevaInscripcion() {
     archivo.grabarEnDisco(NOMBRE_ARCHIVO, registro);
 
     std::cout << "Inscripcion realizada con exito. ID = " << m_idIscripcion << "\n";
+    system("pause");
+}
+
+void GestorInscripcion::listarInscripciones() const {
+    system("cls");
+    Inscripcion inscripto;
+    int pos{};
+
+    ArchivoManager archivo;
+    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, inscripto, pos++))
+    {
+        if (!inscripto.getEliminado()) {
+            std::cout << "ID: " << inscripto.getIdInscripcion()
+            << " | Alumno: " << inscripto.getLegajoAlumno()
+            << " | Curso: "  << std::setfill('0') << std::setw(4) << inscripto.getCurso()
+            << " | Fecha: " << inscripto.getFechaInscripcion().mostrar()
+            << "\n";
+        }
+    }
+    std::cout << std::endl;
     system("pause");
 }
