@@ -20,7 +20,7 @@ void Menu::start()const {
     std::string menuOptions[]{
         "SISTEMA DE GESTION - INSTITUTO TECNOLOGICO", "1. Gestion de Alumnos",
         "2. Gestion de Docentes", "3. Gestion de Cursos",
-        "4. Gestion de Inscripciones", "5. Reportes y Consultas"
+        "4. Gestion de Inscripciones", "5. Reportes y Consultas",
         "6. Copias de Seguridad", "0. Salir", "Seleccione una opcion: "};
 
         int arrayLength{ sizeof(menuOptions) / sizeof(std::string) };
@@ -160,6 +160,7 @@ void Menu::menuCourse()const {
 }
 
 void Menu::menuReports()const {
+
     int option;
 
     std::string menuOptions[]{
@@ -174,10 +175,11 @@ void Menu::menuReports()const {
         draw(menuOptions, arrayLength);
         std::cin >> option;
 
+        GestorInscripcion gestor;
         switch (option) {
             case 1: //@TODO: definir
             case 2:
-            case 3:
+            case 3: gestor.listarInscripciones(); break;
             case 4:
             case 0: break;
             default: std::cout << "Opcion invalida!\n"; system("pause");
