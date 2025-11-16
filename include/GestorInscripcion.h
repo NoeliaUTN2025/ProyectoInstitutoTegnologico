@@ -16,10 +16,13 @@
 
 
 class GestorInscripcion {
+private:
+    const char* NOMBRE_ARCHIVO{ "inscripcion.dat" };
+
 public:
     GestorInscripcion();
     void nuevaInscripcion();
-
+    int obtenerUltimoId();
 };
 
 #endif // GESTORINSCRIPCION_H
