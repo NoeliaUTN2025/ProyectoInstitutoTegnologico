@@ -12,6 +12,7 @@
 
 
 #include "Menu.h"
+#include <GestorInscripcion.h>
 #include <iostream>
 
 void Menu::start()const {
@@ -57,9 +58,10 @@ void Menu::menuRegistration()const {
         system("cls");
         draw(menuOptions, arrayLength);
         std::cin >> option;
+        GestorInscripcion gestor;
 
         switch (option) {
-            case 1: //@TODO: definir
+            case 1: gestor.nuevaInscripcion();
             case 2:
             case 3:
             case 4:
@@ -207,6 +209,13 @@ void Menu::menuBackup()const {
         }
     } while (option != 0);
 }
+
+/**
+ * @brief Dibuja los menus,
+ *
+ * @param funcion que se encarga de acomodar las opciones de los diferentes menus.
+ * @return void
+ */
 
 void Menu::draw(const std::string* options, int arrayLength) const {
 
