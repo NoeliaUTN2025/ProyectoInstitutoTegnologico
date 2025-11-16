@@ -31,7 +31,7 @@ public:
     void setDia(int dia);
     void setMes(int mes);
     void setAnio(int anio);
-    std::string toString() const;
+    std::string mostrar() const;
 };
 
 #endif // FECHA_H
