@@ -23,6 +23,7 @@ public:
     GestorInscripcion();
     void nuevaInscripcion();
     int obtenerUltimoId();
+    void listarInscripciones() const;
 };
 
 #endif // GESTORINSCRIPCION_H
