@@ -10,6 +10,7 @@
  */
 
 #include "ArchivoManager.h"
+#include <iostream>
 
 /*
 bool ArchivoManager::grabarEnDisco(const char* nombreArchivo, const Alumno& objeto) {
@@ -241,11 +242,58 @@ int ArchivoManager::contarRegistrosInscripcion(const char* nombreArchivo) {
 }
 
 bool ArchivoManager::hacerBackup(const char* nombreArchivo, const char* nombreBackup){
-    //@TODO: implementar la funcion.
-    return false;
+    FILE* origen{ fopen(nombreArchivo, "rb") };
+    if (origen == nullptr){
+        std::cerr << "Error: no se pudo abrir el archivo original"; system("pause");
+        return false;
+    }
+
+    FILE* destino{ fopen(nombreBackup, "wb") };
+    if (destino == nullptr){
+        std::cerr << "Error: no se pudo crear el archivo de backup"; system("pause");
+        fclose(origen);
+        return false;
+    }
+
+    char datosTemporales[1024];
+    size_t datosLeidos;
+
+    while ((datosLeidos = fread(datosTemporales, 1, sizeof(datosTemporales), origen)) > 0)
+    {
+        fwrite(datosTemporales, 1, datosLeidos, destino);
+    }
+
+    fclose(origen);
+    fclose(destino);
+    return true;
 }
 
 bool ArchivoManager::restaurarBackup(const char* nombreBackup, const char* nombreDestino){
-    //@TODO: implementar la funcion.
-    return false;
+    FILE* origen{ fopen(nombreBackup, "rb") };
+
+        if (origen == nullptr){
+            std::cerr << "Error: no se pudo abrir el archivo de backup."; system("pause");
+            return false;
+        }
+
+        FILE* destino{ fopen(nombreDestino, "wb") };
+
+        if (destino == nullptr){
+            std::cerr << "Error: no se pudo abrir el archivo destino."; system("pause");
+            fclose(origen);
+            return false;
+        }
+
+        char datosTemporales[1024];
+        size_t datosLeidos;
+
+        while ((datosLeidos = fread(datosTemporales, 1, sizeof(datosTemporales), origen)) > 0)
+        {
+            fwrite(datosTemporales, 1, datosLeidos, destino);
+        }
+
+        fclose(origen);
+        fclose(destino);
+        return true;
 }
+
