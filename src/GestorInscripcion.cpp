@@ -14,9 +14,6 @@
 #include <iomanip>
 
 
-GestorInscripcion::GestorInscripcion() {
-}
-
 int GestorInscripcion::obtenerUltimoId() {
     Inscripcion idInscripto;
     int pos{}, ultimoID{};
@@ -84,3 +81,26 @@ void GestorInscripcion::listarInscripciones() const {
     std::cout << std::endl;
     system("pause");
 }
+
+void GestorInscripcion::backup() const {
+    system("cls");
+    ArchivoManager archivo;
+
+    if (archivo.hacerBackup(NOMBRE_ARCHIVO, ARCHIVO_BAK)) {
+        std::cout << "BackUp realizado con exito!: \n"; system("pause");
+    } else {
+        std::cerr << "No se pudo realizar el BackUp!: \n"; system("pause");
+    }
+}
+
+void GestorInscripcion::restaurar() const {
+    system("cls");
+    ArchivoManager archivo;
+
+    if (archivo.hacerBackup(ARCHIVO_BAK, NOMBRE_ARCHIVO)) {
+        std::cout << "La Restauracion fue exitosa!: \n"; system("pause");
+    } else {
+        std::cerr << "No se pudo realizar la Restauracion!: \n"; system("pause");
+    }
+}
+

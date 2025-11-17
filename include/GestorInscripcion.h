@@ -18,12 +18,15 @@
 class GestorInscripcion {
 private:
     const char* NOMBRE_ARCHIVO{ "inscripcion.dat" };
+    const char* ARCHIVO_BAK{ "inscripcion.bak" };
 
 public:
-    GestorInscripcion();
+    GestorInscripcion() = default;
     void nuevaInscripcion();
     int obtenerUltimoId();
     void listarInscripciones() const;
+    void backup() const;
+    void restaurar() const;
 };
 
 #endif // GESTORINSCRIPCION_H
