@@ -18,14 +18,16 @@
 class Menu{
 public:
     Menu() = default;
-    void start() const;
+    void start();
     void menuStudent()const;
     void menuTeacher() const;
     void menuCourse() const;
     void menuRegistration()const;
     void menuReports() const;
-    void menuBackup() const;
+    void menuBackup();
     void draw(const std::string* options, int arrayLength) const;
+    void realizarBackup() const;
+    void menuRestaurar()const;
 };
 
 #endif // MENU_H

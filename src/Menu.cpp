@@ -15,7 +15,7 @@
 #include <GestorInscripcion.h>
 #include <iostream>
 
-void Menu::start()const {
+void Menu::start() {
     int option;
     std::string menuOptions[]{
         "SISTEMA DE GESTION - INSTITUTO TECNOLOGICO", "1. Gestion de Alumnos",
@@ -187,11 +187,11 @@ void Menu::menuReports()const {
     } while (option != 0);
 }
 
-void Menu::menuBackup()const {
+void Menu::menuBackup() {
     int option;
 
     std::string menuOptions[]{
-        "COPIAS DE SEGURIDAD Y BACKUP", "1. Backup de archivos (.dat)",
+        "COPIAS DE SEGURIDAD Y BACKUP", "1. Hacer backup de archivos",
         "2. Restaurar desde backup", "0. Volver al menú principal" };
 
         int arrayLength{ sizeof(menuOptions) / sizeof(std::string) };
@@ -202,10 +202,8 @@ void Menu::menuBackup()const {
         std::cin >> option;
 
         switch (option) {
-            case 1: //@TODO: definir
-            case 2:
-            case 3:
-            case 4:
+            case 1: realizarBackup(); break;
+            case 2: menuRestaurar(); break;
             case 0: break;
             default: std::cout << "Opcion invalida!\n"; system("pause");
         }
@@ -228,4 +226,83 @@ void Menu::draw(const std::string* options, int arrayLength) const {
             std::cout << "================================================\n" << '\n';
         }
     }
+}
+
+void Menu::realizarBackup() const {
+    int option;
+
+    std::string menuOptions[]{
+        "Elige la opcion que quieras realizar: ", "1. BackUp Alumno: ",
+        "2. BackUp Docente: ", "3. BackUp Curso: ",
+        "4. BackUp Inscripcion: ", "0. Volver al menu anterior: " };
+
+    int arrayLength{ sizeof(menuOptions) / sizeof(std::string) };
+
+    do {
+        system("cls");
+        draw(menuOptions, arrayLength);
+        std::cin >> option;
+
+        switch (option) {
+            case 1:
+                {/*
+                GestorAlumno gestor;
+                gestor.Backup(); break;*/
+            }
+            case 2: {/*
+                GestorDocente gestor;
+                gestor.Backup(); break;*/
+            }
+            case 3: {/*
+                GestorCurso gestor;
+                gestor.Backup(); break;*/
+            }
+            case 4: {
+                GestorInscripcion gestor;
+                gestor.backup(); break;
+            }
+            case 0: break;
+            default: std::cout << "Opcion invalida!\n"; system("pause");
+        }
+    } while (option != 0);
+}
+
+void Menu::menuRestaurar() const {
+    int option;
+
+    std::string menuOptions[]{
+        "Elige la opcion que quieras realizar: ", "1. Restaurar BackUp Alumno: ",
+        "2. Restaurar BackUp Docente: ", "3. Restaurar BackUp Curso: ",
+        "4. Restaurar BackUp Inscripcion: ", "0. Volver al menu anterior: " };
+
+    int arrayLength{ sizeof(menuOptions) / sizeof(std::string) };
+
+    do {
+
+        system("cls");
+        draw(menuOptions, arrayLength);
+        std::cin >> option;
+
+        switch (option)
+        {
+        case 1: /*{
+            GestorAlumno gestor;
+            gestor.restaurar(); break;
+        }*/
+        case 2: /*{
+            GestorDocente gestor;
+            gestor.restaurar(); break;
+        }*/
+        case 3: /*{
+            GestorCurso gestor;
+            gestor.restaurar(); break;
+        }*/
+        case 4: {
+            GestorInscripcion gestor;
+            gestor.restaurar(); break;
+        }
+        case 0: break;
+        default: std::cout << "Opcion invalida!\n"; system("pause");
+        }
+    } while (option != 0);
 }
