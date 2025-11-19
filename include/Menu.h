@@ -26,7 +26,7 @@ public:
     void menuReports() const;
     void menuBackup();
     void draw(const std::string* options, int arrayLength) const;
-    void realizarBackup() const;
+    void menuRealizarBackup() const;
     void menuRestaurar()const;
 };
 

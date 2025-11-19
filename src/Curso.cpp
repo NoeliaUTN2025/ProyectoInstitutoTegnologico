@@ -1,7 +1,7 @@
 #include "../include/Curso.h"
 
 using namespace std;
-/////////////////////////// CAMBIO PRUEBA ///////////////////////
+
 Curso::Curso() {
     _idCurso =  0;
     _legajoDocente = 0;

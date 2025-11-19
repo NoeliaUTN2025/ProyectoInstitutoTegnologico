@@ -44,7 +44,6 @@ public:
     void setFormaDePago(const std::string& formaDePago);
     void setEliminado(bool eliminado);
     void setFechaInscripcion(const Fecha& fechaInscripcion);
-
 };
 
 #endif // INSCRIPCION_H

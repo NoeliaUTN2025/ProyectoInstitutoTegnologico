@@ -228,7 +228,7 @@ void Menu::draw(const std::string* options, int arrayLength) const {
     }
 }
 
-void Menu::realizarBackup() const {
+void Menu::menuRealizarBackup() const {
     int option;
 
     std::string menuOptions[]{
