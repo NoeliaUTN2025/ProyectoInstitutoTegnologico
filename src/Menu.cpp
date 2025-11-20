@@ -14,6 +14,7 @@
 #include "Menu.h"
 #include <GestorInscripcion.h>
 #include <iostream>
+#include "GestorAlumno.h"
 
 void Menu::start() {
     int option;
@@ -88,13 +89,15 @@ void Menu::menuStudent()const {
         draw(menuOptions, arrayLength);
         std::cin >> option;
 
+        GestorAlumno gestor;
+
         switch (option) {
-            case 1: //@TODO: definir
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
+            case 1: gestor.nuevoAlumno() ;break;
+            case 2: //gestor.listarAlumnos(); break;
+            case 3: //gestor.buscarAlumnos()break
+            case 4: //gestor.modificarAlumnos(); break;
+            case 5: //gestor.darBajaAlumno(); break;
+            case 6: //gestor.mostrarAlumnosDeBaja(); break;
             case 0: break;
             default: std::cout << "Opcion invalida!\n"; system("pause");
         }
@@ -202,7 +205,7 @@ void Menu::menuBackup() {
         std::cin >> option;
 
         switch (option) {
-            case 1: realizarBackup(); break;
+            case 1: //realizarBackup(); break;  /// nota noe 19/11ESTE NO COMPLIABA
             case 2: menuRestaurar(); break;
             case 0: break;
             default: std::cout << "Opcion invalida!\n"; system("pause");

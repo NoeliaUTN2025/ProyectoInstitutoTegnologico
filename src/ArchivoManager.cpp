@@ -12,7 +12,7 @@
 #include "ArchivoManager.h"
 #include <iostream>
 
-/*
+
 bool ArchivoManager::grabarEnDisco(const char* nombreArchivo, const Alumno& objeto) {
 
     FILE* p{ fopen(nombreArchivo, "ab") };
@@ -26,6 +26,7 @@ bool ArchivoManager::grabarEnDisco(const char* nombreArchivo, const Alumno& obje
     return (cantidadLeida == 1);
 }
 
+/*
 bool ArchivoManager::grabarEnDisco(const char* nombreArchivo, const Docente& objeto) {
 
     FILE* p{ fopen(nombreArchivo, "ab") };
@@ -65,8 +66,8 @@ bool ArchivoManager::grabarEnDisco(const char* nombreArchivo, const Inscripcion&
     return (cantidadLeida == 1);
 }
 
-/*
-bool ArchivoManager::leerDeDisco(const char* nombreArchivo, const Alumno& objeto, int pos) {
+
+bool ArchivoManager::leerDeDisco(const char* nombreArchivo,  Alumno& objeto, int pos) {
 
     FILE* p{ fopen(nombreArchivo, "rb") };
 
@@ -81,6 +82,7 @@ bool ArchivoManager::leerDeDisco(const char* nombreArchivo, const Alumno& objeto
     return (cantidadLeida == 1);
 }
 
+/*
 bool ArchivoManager::leerDeDisco(const char* nombreArchivo, const Docente& objeto, int pos) {
 
     FILE* p{ fopen(nombreArchivo, "rb") };
