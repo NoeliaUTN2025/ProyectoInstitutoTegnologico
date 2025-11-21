@@ -13,11 +13,12 @@ private:
 public:
     int obtenerUltimoLegajo();
     void nuevoAlumno();
-   // void listarAlumnos();
-    //void buscarAlumnos();
-    //void modificarAlumnos();
-    //void darBajaAlumno();
-    //void mostrarAlumnosDeBaja();
+    void listarAlumnos();
+    int  buscarAlumnosPorLegajo();
+     void buscarAlumnosPorDNI();
+    void modificarAlumnos();
+    void darBajaAlumno();
+    void mostrarAlumnosDeBaja();
 
 
 };

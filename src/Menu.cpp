@@ -94,7 +94,7 @@ void Menu::menuStudent()const {
         switch (option) {
             case 1: gestor.nuevoAlumno() ;break;
             case 2: //gestor.listarAlumnos(); break;
-            case 3: //gestor.buscarAlumnos()break
+            case 3: //gestor.buscarAlumnosPorLegajo()break
             case 4: //gestor.modificarAlumnos(); break;
             case 5: //gestor.darBajaAlumno(); break;
             case 6: //gestor.mostrarAlumnosDeBaja(); break;

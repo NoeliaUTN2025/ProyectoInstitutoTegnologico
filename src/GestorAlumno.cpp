@@ -9,15 +9,15 @@
 using namespace std;
 
 int GestorAlumno::obtenerUltimoLegajo(){
-    Alumno aux;
+    Alumno alumno;
     int pos =0;
     int ultimoLejago =0;
 
     ArchivoManager archivo;
 
-    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, aux, pos++)){
-        if (aux.getLegajoAlumno() > ultimoLejago){
-            ultimoLejago = aux.getLegajoAlumno();
+    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos++)){
+        if (alumno.getLegajoAlumno() > ultimoLejago){
+            ultimoLejago = alumno.getLegajoAlumno();
         }
     }
         return ultimoLejago + 1;
@@ -81,3 +81,248 @@ void GestorAlumno::nuevoAlumno(){
     system("pause");
 
 }
+
+void  GestorAlumno::listarAlumnos() {
+    Alumno alumno;
+    int pos = 0;
+
+    ArchivoManager archivo;
+
+    cout << "------------LISTADO DE ALUMNOS--------------" << endl;
+    cout << endl;
+
+    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos)){
+        if (!alumno.getEliminado()){
+            alumno.Mostrar();
+
+            cout << "--------------------------------------------------------------" << endl;
+        }
+    }
+
+}
+
+/*
+int  GestorAlumno::buscarAlumnosPorLegajo() {
+    Alumno alumno;
+    int pos = 0;
+    int legajo;
+
+    Alumno NoEncontrado;
+    NoEncontrado.setLegajoAlumno(-1);
+
+    ArchivoManager archivo;
+
+    cout << "------------ BUSCAR ALUMNOS POR LEGAJO--------------" << endl;
+    cout << endl;
+    cout << "Ingrese el Legajo del alumno:";
+    cin  >> legajo;
+
+    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos)){
+        if (alumno.getLegajoAlumno() == legajo){
+            return alumno;
+        }
+                else{
+                    cout << "Alumno no enconcontrado"<< NoEncontrado<< endl;
+                }
+            }
+            cout << "---------------------------------------------------------------" << endl;
+        }
+    }
+
+}
+
+
+Alumno GestorAlumno::buscarAlumnosPorDNI() {
+    Alumno alumno;
+    int pos = 0;
+    int dni;
+
+    Alumno NoEncontrado;
+    NoEncontrado.setDni(-1);
+
+    ArchivoManager archivo;
+
+    cout << "------------ BUSCAR ALUMNOS POR DNI--------------" << endl;
+    cout << endl;
+    cout << "Ingrese el DNI del alumno:";
+    cin  >> dni;
+
+    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos)){
+        if (alumno.getDni() == dni){
+            return alumno;
+            {
+                else{
+                    cout << "Alumno no enconcontrado"<< NoEncontrado<< endl;
+                }
+            }
+            cout << "---------------------------------------------------------------" << endl;
+        }
+    }
+
+}
+
+void GestorAlumno::modificarAlumnos(){
+    Alumno alumno;
+    int pos = 0;
+    int dni;
+
+    ArchivoManager archivo;
+
+    cout << "------------ MODIFICAR ALUMNO --------------" << endl;
+    cout << endl;
+    cout << "Ingrese el DNI del alumno que desea modificar";
+    cin >> dni;
+
+
+    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos)){
+        if (alumno.getDni() ==dni && !alumno.getEliminado()){
+
+        cout << "----------DATOS ACTUALES--------------" << endl;
+        alumno.Mostrar();
+
+        cout << "¿Que datos desea modificar?";
+        cout << "1. Nombre";
+        cout << "2. Apellido";
+        cout << "3. DNI";
+        cout << "4. Fecha de Nacimiento";
+        cout << "5. Telefono";
+        cout << "6. Email";
+        cout << "7. Direccion";
+        cout << "0. Cancelar";
+        cout << "Elija una opcion:";
+
+        int opcion;
+        cin  >> opcion;
+
+        cin.ignore();
+
+        switch(opcion){
+        case 1: {
+            char nombre [50];
+            cout << "Ingrese el nuevo Nombre: ";
+            cin.getline(nombre, 50);
+            alumno.setNombre(nombre);
+        } break;
+
+        case 2:{
+            char apellido [50];
+            cout << "Ingrese el nuevo Apellido: ";
+            cin.getline(apellido, 50);
+            alumno.setApellido(apellido);
+        } break;
+
+        case 3: {
+            char dni [20];
+            cout << "Ingrese el nuevo DNI: ";
+            cin.getline(dni, 20);
+            alumno.setDni(nombre);
+        } break;
+
+        case 4: {
+            Fecha f;
+            int dia, mes, anio;
+            cout << "Ingrese el dia: ";
+            cin >> dia;
+            cout << "Ingrese el mes: ";
+            cin >> mes;
+            cout << "Ingrese el Año: ";
+            cin >> anio;
+            f.setDia(dia);
+            f.setMes(mes);
+            f.setAnio(anio);
+
+            alumno.setFechaNacimiento(f);
+        } break;
+
+        case 5: {
+            char telefono [20];
+            cout << "Ingrese el nuevo telefono: ";
+            cin.getline(telefono, 20);
+            alumno.setTelefono(telefono);
+        } break;
+
+        case 6: {
+            char email [50];
+            cout << "Ingrese el nuevo email: ";
+            cin.getline(email, 50);
+            alumno.setEmail(email);
+        } break;
+
+        case 7: {
+            char direccion [100];
+            cout << "Ingrese la nueva direccion: ";
+            cin.getline(direccion, 100);
+            alumno.setDireccion(direccion);
+        } break;
+
+        case 0: {
+            cout << "Modificacion cancelada" << endl;
+            system("pause");
+            return;
+
+        default:
+            cout << "Opcion Invalida."
+            system("pause");
+            return;
+        }
+            archivo.sobrescribirRegistro(ARCHIVO_ALUMNOS, alumno, pos);
+
+            cout << "Alumno modificado con exito.";
+            system("pause");
+            return;
+
+        }
+        pos ++;
+
+ {
+                cout << "Alumno no encontrado" << endl;
+                system("pause");
+
+}
+
+
+void GestorAlumno::darBajaAlumno(){
+    int dni;
+
+    cout << "Ingrese el dni del alumno que desea dar de baja: ";
+    cin  >>  dni;
+
+    Alumno bajaAlumno;
+
+ArchivoManager archivo;
+int pos = 0;
+
+while (archivo.leerDeDisco(ARCHIVO_ALUMNOS, bajaAlumno, pos)){
+    if (bajaAlumno.getDni() == dni && !bajaAlumno.getEliminado()){
+        bajaAlumno.setEliminado(true);
+        archivo.sobrescribirRegistro(ARCHIVO_ALUMNOS, bajaAlumno, pos);
+
+        cout << "Alumno dado de baja";
+        system ("pause");
+        return;
+
+    }
+    pos++;
+}
+        cout << "DNI no encontrado";
+        system ("pause");
+
+    }
+
+
+void GestorAlumno::mostrarAlumnosDeBaja(){
+    Alumno alumno;
+    ArchivoManager archivo;
+    int pos = 0;
+
+    cout << "-----------ALUMNOS DADOS DE BAJA-------------"<< endl;
+
+while (archivo.leerDeDisco(ARCHIVO_ALUMNOS, alumno, pos)){
+    if (alumno.getEliminado() ){
+            alumno.Mostrar();
+    cout << "------------------------------------------------------------" < endl;
+
+        }
+    }
+}
+*////// revisar error
