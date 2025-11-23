@@ -15,8 +15,10 @@
 #include <GestorInscripcion.h>
 #include <iostream>
 #include "GestorAlumno.h"
+#include <string>
 
-void Menu::start() {
+
+void Menu::start() const {
     int option;
     std::string menuOptions[]{
         "SISTEMA DE GESTION - INSTITUTO TECNOLOGICO", "1. Gestion de Alumnos",
@@ -29,7 +31,14 @@ void Menu::start() {
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-        std::cin >> option;
+
+        /**
+         * Solucion a limpiado del Buffer.
+         * https://stackoverflow.com/questions/25475384/when-and-why-do-i-need-to-use-cin-ignore-in-c
+         * Usuario: user4581301 - https://stackoverflow.com/a/25476169
+         */
+
+        option = validation();
 
         switch (option) {
             case 1: menuStudent(); break;
@@ -39,7 +48,9 @@ void Menu::start() {
             case 5: menuReports(); break;
             case 6: menuBackup(); break;
             case 0: std::cout << "Saliendo...\n"; break;
-            default: std::cout << "Opcion invalida!\n"; system("pause");
+            default: std::cout << "Opcion invalida!\n";
+            std::cout << "Presione ENTER continuar..."; //system("pause");
+            std::cin.ignore(1000, '\n');
         }
     } while (option != 0);
 }
@@ -58,7 +69,8 @@ void Menu::menuRegistration()const {
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-        std::cin >> option;
+        option = validation();
+
         GestorInscripcion gestor;
 
         switch (option) {
@@ -68,7 +80,9 @@ void Menu::menuRegistration()const {
             case 4:
             case 5:
             case 0: break;
-            default: std::cout << "Opcion invalida!\n"; system("pause");
+            default: std::cout << "Opcion invalida!\n";
+            std::cout << "Presione ENTER continuar...";
+            std::cin.ignore(1000, '\n');
         }
     } while (option != 0);
 }
@@ -87,7 +101,8 @@ void Menu::menuStudent()const {
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-        std::cin >> option;
+
+        option = validation();
 
         GestorAlumno gestor;
 
@@ -99,7 +114,9 @@ void Menu::menuStudent()const {
             case 5: //gestor.darBajaAlumno(); break;
             case 6: //gestor.mostrarAlumnosDeBaja(); break;
             case 0: break;
-            default: std::cout << "Opcion invalida!\n"; system("pause");
+            default: std::cout << "Opcion invalida!\n";
+            std::cout << "Presione ENTER continuar...";
+            std::cin.ignore(1000, '\n');
         }
     } while (option != 0);
 }
@@ -118,7 +135,7 @@ void Menu::menuTeacher()const {
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-        std::cin >> option;
+        option = validation();
 
         switch (option) {
             case 1: //@TODO: definir
@@ -128,7 +145,9 @@ void Menu::menuTeacher()const {
             case 5:
             case 6:
             case 0: break;
-            default: std::cout << "Opcion invalida!\n"; system("pause");
+            default: std::cout << "Opcion invalida!\n";
+            std::cout << "Presione ENTER continuar...";
+            std::cin.ignore(1000, '\n');
         }
     } while (option != 0);
 }
@@ -147,7 +166,7 @@ void Menu::menuCourse()const {
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-        std::cin >> option;
+        option = validation();
 
         switch (option) {
             case 1: //@TODO: definir
@@ -157,7 +176,9 @@ void Menu::menuCourse()const {
             case 5:
             case 6:
             case 0: break;
-            default: std::cout << "Opcion invalida!\n"; system("pause");
+            default: std::cout << "Opcion invalida!\n";
+            std::cout << "Presione ENTER continuar...";
+            std::cin.ignore(1000, '\n');
         }
     } while (option != 0);
 }
@@ -176,7 +197,7 @@ void Menu::menuReports()const {
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-        std::cin >> option;
+        option = validation();
 
         GestorInscripcion gestor;
         switch (option) {
@@ -185,12 +206,14 @@ void Menu::menuReports()const {
             case 3: gestor.listarInscripciones(); break;
             case 4:
             case 0: break;
-            default: std::cout << "Opcion invalida!\n"; system("pause");
+            default: std::cout << "Opcion invalida!\n";
+            std::cout << "Presione ENTER continuar...";
+            std::cin.ignore(1000, '\n');
         }
     } while (option != 0);
 }
 
-void Menu::menuBackup() {
+void Menu::menuBackup() const {
     int option;
 
     std::string menuOptions[]{
@@ -202,13 +225,15 @@ void Menu::menuBackup() {
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-        std::cin >> option;
+        option = validation();
 
         switch (option) {
             case 1: //realizarBackup(); break;  /// nota noe 19/11ESTE NO COMPLIABA
             case 2: menuRestaurar(); break;
             case 0: break;
-            default: std::cout << "Opcion invalida!\n"; system("pause");
+            default: std::cout << "Opcion invalida!\n";
+            std::cout << "Presione ENTER continuar...";
+            std::cin.ignore(1000, '\n');
         }
     } while (option != 0);
 }
@@ -244,7 +269,7 @@ void Menu::menuRealizarBackup() const {
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-        std::cin >> option;
+        option = validation();
 
         switch (option) {
             case 1:
@@ -265,7 +290,9 @@ void Menu::menuRealizarBackup() const {
                 gestor.backup(); break;
             }
             case 0: break;
-            default: std::cout << "Opcion invalida!\n"; system("pause");
+            default: std::cout << "Opcion invalida!\n";
+            std::cout << "Presione ENTER continuar...";
+            std::cin.ignore(1000, '\n');
         }
     } while (option != 0);
 }
@@ -284,7 +311,7 @@ void Menu::menuRestaurar() const {
 
         system("cls");
         draw(menuOptions, arrayLength);
-        std::cin >> option;
+        option = validation();
 
         switch (option)
         {
@@ -305,7 +332,32 @@ void Menu::menuRestaurar() const {
             gestor.restaurar(); break;
         }
         case 0: break;
-        default: std::cout << "Opcion invalida!\n"; system("pause");
+        default: std::cout << "Opcion invalida!\n";
+        std::cout << "Presione ENTER continuar...";
+        std::cin.ignore(1000, '\n');
         }
     } while (option != 0);
+}
+
+int Menu::validation() const {
+
+    std::string entry;
+    std::getline(std::cin, entry);
+
+    // Validar si es número
+    bool isNumber = !entry.empty();
+    for (char c : entry) {
+        if (c < '0' || c > '9') {
+            isNumber = false;
+            break;
+        }
+    }
+    int option;
+    if (isNumber) {
+        option = std::stoi(entry);
+    }
+    else {
+        option = -1;
+    }
+    return option;
 }
