@@ -11,15 +11,16 @@ private:
 
 
 public:
+    GestorAlumno() = default;
+
     int obtenerUltimoLegajo();
     void nuevoAlumno();
-    void listarAlumnos();
-    int  buscarAlumnosPorLegajo();
+    void listarAlumnos() ;
+    void  buscarAlumnosPorLegajo();
      void buscarAlumnosPorDNI();
-    void modificarAlumnos();
+    void modificarAlumno();
     void darBajaAlumno();
-    void mostrarAlumnosDeBaja();
-
+    void mostrarAlumnosDeBaja() ;
 
 };
 

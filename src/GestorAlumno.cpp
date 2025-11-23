@@ -101,14 +101,12 @@ void  GestorAlumno::listarAlumnos() {
 
 }
 
-/*
-int  GestorAlumno::buscarAlumnosPorLegajo() {
+
+void  GestorAlumno::buscarAlumnosPorLegajo() {
     Alumno alumno;
     int pos = 0;
     int legajo;
 
-    Alumno NoEncontrado;
-    NoEncontrado.setLegajoAlumno(-1);
 
     ArchivoManager archivo;
 
@@ -117,28 +115,31 @@ int  GestorAlumno::buscarAlumnosPorLegajo() {
     cout << "Ingrese el Legajo del alumno:";
     cin  >> legajo;
 
-    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos)){
-        if (alumno.getLegajoAlumno() == legajo){
-            return alumno;
-        }
-                else{
-                    cout << "Alumno no enconcontrado"<< NoEncontrado<< endl;
-                }
-            }
-            cout << "---------------------------------------------------------------" << endl;
-        }
+    bool encontrado = false;
+
+    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos++)){
+        if (!alumno.getEliminado() && alumno.getLegajoAlumno() == legajo)
+
+            cout << "------------------Alumno encontrado--------------------";
+        alumno.Mostrar();
+
+        encontrado = true;
+        break;
     }
+                if (!encontrado){
+                    cout << "Alumno no enconcontrado"<< endl;
+
+}
 
 }
 
 
-Alumno GestorAlumno::buscarAlumnosPorDNI() {
+void GestorAlumno::buscarAlumnosPorDNI() {
+
     Alumno alumno;
     int pos = 0;
-    int dni;
+    std::string  dni;
 
-    Alumno NoEncontrado;
-    NoEncontrado.setDni(-1);
 
     ArchivoManager archivo;
 
@@ -147,24 +148,30 @@ Alumno GestorAlumno::buscarAlumnosPorDNI() {
     cout << "Ingrese el DNI del alumno:";
     cin  >> dni;
 
-    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos)){
-        if (alumno.getDni() == dni){
-            return alumno;
-            {
-                else{
-                    cout << "Alumno no enconcontrado"<< NoEncontrado<< endl;
-                }
-            }
-            cout << "---------------------------------------------------------------" << endl;
-        }
+    bool encontrado = false;
+
+    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos)) {
+        if (!alumno.getEliminado() && alumno.getDni() ==  std::string (dni)){
+
+        cout << "------------------Alumno encontrado--------------------";
+        alumno.Mostrar();
+
+        encontrado = true;
+        break;
     }
+    }
+                if (!encontrado){
+                    cout << "Alumno no enconcontrado"<< endl;
 
 }
 
-void GestorAlumno::modificarAlumnos(){
+}
+
+
+void GestorAlumno::modificarAlumno(){
     Alumno alumno;
     int pos = 0;
-    int dni;
+    std::string  dni;
 
     ArchivoManager archivo;
 
@@ -175,7 +182,7 @@ void GestorAlumno::modificarAlumnos(){
 
 
     while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos)){
-        if (alumno.getDni() ==dni && !alumno.getEliminado()){
+        if (alumno.getDni() ==  std::string (dni) && !alumno.getEliminado()) {
 
         cout << "----------DATOS ACTUALES--------------" << endl;
         alumno.Mostrar();
@@ -215,7 +222,7 @@ void GestorAlumno::modificarAlumnos(){
             char dni [20];
             cout << "Ingrese el nuevo DNI: ";
             cin.getline(dni, 20);
-            alumno.setDni(nombre);
+            alumno.setDni(dni);
         } break;
 
         case 4: {
@@ -259,13 +266,14 @@ void GestorAlumno::modificarAlumnos(){
             cout << "Modificacion cancelada" << endl;
             system("pause");
             return;
+        }
 
-        default:
-            cout << "Opcion Invalida."
+        default:{
+            cout << "Opcion Invalida.";
             system("pause");
             return;
         }
-            archivo.sobrescribirRegistro(ARCHIVO_ALUMNOS, alumno, pos);
+            archivo.sobrescribirRegistro(NOMBRE_ARCHIVO, alumno, pos);
 
             cout << "Alumno modificado con exito.";
             system("pause");
@@ -274,15 +282,15 @@ void GestorAlumno::modificarAlumnos(){
         }
         pos ++;
 
- {
+        }
                 cout << "Alumno no encontrado" << endl;
                 system("pause");
-
+    }
 }
 
 
 void GestorAlumno::darBajaAlumno(){
-    int dni;
+    std::string  dni;
 
     cout << "Ingrese el dni del alumno que desea dar de baja: ";
     cin  >>  dni;
@@ -291,21 +299,27 @@ void GestorAlumno::darBajaAlumno(){
 
 ArchivoManager archivo;
 int pos = 0;
+bool encontrado = false;
 
-while (archivo.leerDeDisco(ARCHIVO_ALUMNOS, bajaAlumno, pos)){
+while (archivo.leerDeDisco(NOMBRE_ARCHIVO, bajaAlumno, pos)) {
     if (bajaAlumno.getDni() == dni && !bajaAlumno.getEliminado()){
-        bajaAlumno.setEliminado(true);
-        archivo.sobrescribirRegistro(ARCHIVO_ALUMNOS, bajaAlumno, pos);
 
-        cout << "Alumno dado de baja";
+        bajaAlumno.setEliminado(true);
+        archivo.sobrescribirRegistro(NOMBRE_ARCHIVO, bajaAlumno, pos);
+
+        cout << "Alumno dado de baja correctamente";
         system ("pause");
-        return;
+
+        encontrado = true;
+        break;
 
     }
     pos++;
 }
+        if (!encontrado){
         cout << "DNI no encontrado";
         system ("pause");
+        }
 
     }
 
@@ -317,12 +331,11 @@ void GestorAlumno::mostrarAlumnosDeBaja(){
 
     cout << "-----------ALUMNOS DADOS DE BAJA-------------"<< endl;
 
-while (archivo.leerDeDisco(ARCHIVO_ALUMNOS, alumno, pos)){
+while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos)){
     if (alumno.getEliminado() ){
             alumno.Mostrar();
-    cout << "------------------------------------------------------------" < endl;
+    cout << "------------------------------------------------------------";
 
         }
     }
 }
-*////// revisar error

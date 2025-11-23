@@ -15,10 +15,9 @@
 #include <GestorInscripcion.h>
 #include <iostream>
 #include "GestorAlumno.h"
-#include <string>
+#include "GestorDocente.h"
 
-
-void Menu::start() const {
+void Menu::start() {
     int option;
     std::string menuOptions[]{
         "SISTEMA DE GESTION - INSTITUTO TECNOLOGICO", "1. Gestion de Alumnos",
@@ -31,14 +30,7 @@ void Menu::start() const {
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-
-        /**
-         * Solucion a limpiado del Buffer.
-         * https://stackoverflow.com/questions/25475384/when-and-why-do-i-need-to-use-cin-ignore-in-c
-         * Usuario: user4581301 - https://stackoverflow.com/a/25476169
-         */
-
-        option = validation();
+        std::cin >> option;
 
         switch (option) {
             case 1: menuStudent(); break;
@@ -48,9 +40,7 @@ void Menu::start() const {
             case 5: menuReports(); break;
             case 6: menuBackup(); break;
             case 0: std::cout << "Saliendo...\n"; break;
-            default: std::cout << "Opcion invalida!\n";
-            std::cout << "Presione ENTER continuar..."; //system("pause");
-            std::cin.ignore(1000, '\n');
+            default: std::cout << "Opcion invalida!\n"; system("pause");
         }
     } while (option != 0);
 }
@@ -69,8 +59,7 @@ void Menu::menuRegistration()const {
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-        option = validation();
-
+        std::cin >> option;
         GestorInscripcion gestor;
 
         switch (option) {
@@ -80,9 +69,7 @@ void Menu::menuRegistration()const {
             case 4:
             case 5:
             case 0: break;
-            default: std::cout << "Opcion invalida!\n";
-            std::cout << "Presione ENTER continuar...";
-            std::cin.ignore(1000, '\n');
+            default: std::cout << "Opcion invalida!\n"; system("pause");
         }
     } while (option != 0);
 }
@@ -92,31 +79,29 @@ void Menu::menuStudent()const {
 
     std::string menuOptions[]{
         "GESTIÓN DE ALUMNOS", "1. Alta de alumno",
-        "2. Listar alumnos", "3. Buscar alumno por legajo",
-        "4. Modificar datos de alumno", "5. Dar de baja alumno",
-        "6. Mostrar alumnos dados de baja", "0. Volver al menú principal" };
+        "2. Listar alumnos", "3. Buscar alumno por legajo","4. Buscar alumno por DNI",
+        "5. Modificar datos de alumno", "6. Dar de baja alumno",
+        "7. Mostrar alumnos dados de baja", "0. Volver al menú principal" };
 
         int arrayLength{ sizeof(menuOptions) / sizeof(std::string) };
 
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-
-        option = validation();
+        std::cin >> option;
 
         GestorAlumno gestor;
 
         switch (option) {
             case 1: gestor.nuevoAlumno() ;break;
-            case 2: //gestor.listarAlumnos(); break;
-            case 3: //gestor.buscarAlumnosPorLegajo()break
-            case 4: //gestor.modificarAlumnos(); break;
-            case 5: //gestor.darBajaAlumno(); break;
-            case 6: //gestor.mostrarAlumnosDeBaja(); break;
+            case 2: gestor.listarAlumnos(); break;
+            case 3: gestor.buscarAlumnosPorLegajo(); break;
+            case 4: gestor.buscarAlumnosPorDNI() ;break;
+            case 5: gestor.modificarAlumno(); break;
+            case 6: gestor.darBajaAlumno(); break;
+            case 7: gestor.mostrarAlumnosDeBaja(); break;
             case 0: break;
-            default: std::cout << "Opcion invalida!\n";
-            std::cout << "Presione ENTER continuar...";
-            std::cin.ignore(1000, '\n');
+            default: std::cout << "Opcion invalida!\n"; system("pause");
         }
     } while (option != 0);
 }
@@ -126,28 +111,29 @@ void Menu::menuTeacher()const {
 
     std::string menuOptions[]{
         "GESTIÓN DE DOCENTES", "1. Alta de docente",
-        "2. Listar docente", "3. Buscar docente por legajo",
-        "4. Modificar datos de docente", "5. Dar de baja docente",
-        "6. Mostrar docentes dados de baja", "0. Volver al menú principal" };
+        "2. Listar docente", "3. Buscar docente por legajo","4. Buscar docente por DNI",
+        "5. Modificar datos de docente", "6. Dar de baja docente",
+        "7. Mostrar docentes dados de baja", "0. Volver al menú principal" };
 
         int arrayLength{ sizeof(menuOptions) / sizeof(std::string) };
 
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-        option = validation();
+        std::cin >> option;
+
+    GestorDocente gestor;
 
         switch (option) {
-            case 1: //@TODO: definir
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
+            case 1: //gestor.nuevoDocente(); break;
+            case 2: //gestor.listarDocentes(); break;
+            case 3: //gestor.buscarDocentesPorLegajo(); break;
+            case 4: //gestor.buscarDocentesPorDNI(); break;
+            case 5: //gestor.modificarDocentes(); break;
+            case 6: //gestor.darBajaDocentes(); break;
+            case 7: //gestor.mostrarDocentesDeBaja(); break;
             case 0: break;
-            default: std::cout << "Opcion invalida!\n";
-            std::cout << "Presione ENTER continuar...";
-            std::cin.ignore(1000, '\n');
+            default: std::cout << "Opcion invalida!\n"; system("pause");
         }
     } while (option != 0);
 }
@@ -166,7 +152,7 @@ void Menu::menuCourse()const {
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-        option = validation();
+        std::cin >> option;
 
         switch (option) {
             case 1: //@TODO: definir
@@ -176,9 +162,7 @@ void Menu::menuCourse()const {
             case 5:
             case 6:
             case 0: break;
-            default: std::cout << "Opcion invalida!\n";
-            std::cout << "Presione ENTER continuar...";
-            std::cin.ignore(1000, '\n');
+            default: std::cout << "Opcion invalida!\n"; system("pause");
         }
     } while (option != 0);
 }
@@ -197,7 +181,7 @@ void Menu::menuReports()const {
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-        option = validation();
+        std::cin >> option;
 
         GestorInscripcion gestor;
         switch (option) {
@@ -206,14 +190,12 @@ void Menu::menuReports()const {
             case 3: gestor.listarInscripciones(); break;
             case 4:
             case 0: break;
-            default: std::cout << "Opcion invalida!\n";
-            std::cout << "Presione ENTER continuar...";
-            std::cin.ignore(1000, '\n');
+            default: std::cout << "Opcion invalida!\n"; system("pause");
         }
     } while (option != 0);
 }
 
-void Menu::menuBackup() const {
+void Menu::menuBackup() {
     int option;
 
     std::string menuOptions[]{
@@ -225,15 +207,13 @@ void Menu::menuBackup() const {
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-        option = validation();
+        std::cin >> option;
 
         switch (option) {
             case 1: //realizarBackup(); break;  /// nota noe 19/11ESTE NO COMPLIABA
             case 2: menuRestaurar(); break;
             case 0: break;
-            default: std::cout << "Opcion invalida!\n";
-            std::cout << "Presione ENTER continuar...";
-            std::cin.ignore(1000, '\n');
+            default: std::cout << "Opcion invalida!\n"; system("pause");
         }
     } while (option != 0);
 }
@@ -269,7 +249,7 @@ void Menu::menuRealizarBackup() const {
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-        option = validation();
+        std::cin >> option;
 
         switch (option) {
             case 1:
@@ -290,9 +270,7 @@ void Menu::menuRealizarBackup() const {
                 gestor.backup(); break;
             }
             case 0: break;
-            default: std::cout << "Opcion invalida!\n";
-            std::cout << "Presione ENTER continuar...";
-            std::cin.ignore(1000, '\n');
+            default: std::cout << "Opcion invalida!\n"; system("pause");
         }
     } while (option != 0);
 }
@@ -311,7 +289,7 @@ void Menu::menuRestaurar() const {
 
         system("cls");
         draw(menuOptions, arrayLength);
-        option = validation();
+        std::cin >> option;
 
         switch (option)
         {
@@ -332,32 +310,7 @@ void Menu::menuRestaurar() const {
             gestor.restaurar(); break;
         }
         case 0: break;
-        default: std::cout << "Opcion invalida!\n";
-        std::cout << "Presione ENTER continuar...";
-        std::cin.ignore(1000, '\n');
+        default: std::cout << "Opcion invalida!\n"; system("pause");
         }
     } while (option != 0);
-}
-
-int Menu::validation() const {
-
-    std::string entry;
-    std::getline(std::cin, entry);
-
-    // Validar si es número
-    bool isNumber = !entry.empty();
-    for (char c : entry) {
-        if (c < '0' || c > '9') {
-            isNumber = false;
-            break;
-        }
-    }
-    int option;
-    if (isNumber) {
-        option = std::stoi(entry);
-    }
-    else {
-        option = -1;
-    }
-    return option;
 }

@@ -96,8 +96,8 @@ bool ArchivoManager::leerDeDisco(const char* nombreArchivo, const Docente& objet
     fclose(p);
 
     return (cantidadLeida == 1);
-}
-
+}*/
+/*
 bool ArchivoManager::leerDeDisco(const char* nombreArchivo, const Curso& objeto, int pos) {
 
     FILE* p{ fopen(nombreArchivo, "rb") };
@@ -128,7 +128,7 @@ bool ArchivoManager::leerDeDisco(const char* nombreArchivo, Inscripcion& objeto,
     return (cantidadLeida == 1);
 }
 
-/*
+
 bool ArchivoManager::sobrescribirRegistro(const char* nombreArchivo, const Alumno& objeto, int pos) {
 
     FILE* p{ fopen(nombreArchivo, "rb+") };
@@ -142,7 +142,7 @@ bool ArchivoManager::sobrescribirRegistro(const char* nombreArchivo, const Alumn
 
     return (cantidadLeida == 1);
 }
-
+/*
 bool ArchivoManager::sobrescribirRegistro(const char* nombreArchivo, const Docente& objeto, int pos) {
 
     FILE* p{ fopen(nombreArchivo, "rb+") };
@@ -156,7 +156,7 @@ bool ArchivoManager::sobrescribirRegistro(const char* nombreArchivo, const Docen
 
     return (cantidadLeida == 1);
 }
-
+/*
 bool ArchivoManager::sobrescribirRegistro(const char* nombreArchivo, const Curso& objeto, int pos) {
 
     FILE* p{ fopen(nombreArchivo, "rb+") };
@@ -169,8 +169,8 @@ bool ArchivoManager::sobrescribirRegistro(const char* nombreArchivo, const Curso
     fclose(p);
 
     return (cantidadLeida == 1);
-}*/
-
+}
+*/
 bool ArchivoManager::sobrescribirRegistro(const char* nombreArchivo, const Inscripcion& objeto, int pos) {
 
     FILE* p{ fopen(nombreArchivo, "rb+") };
@@ -185,7 +185,7 @@ bool ArchivoManager::sobrescribirRegistro(const char* nombreArchivo, const Inscr
     return (cantidadLeida == 1);
 }
 
-/*
+
 int ArchivoManager::contarRegistrosAlumno(const char* nombreArchivo) {
     FILE* p{fopen(nombreArchivo, "rb")};
 
@@ -199,7 +199,7 @@ int ArchivoManager::contarRegistrosAlumno(const char* nombreArchivo) {
     fclose(p);
     return static_cast<int>(tamanio);
 }
-
+/*
 int ArchivoManager::contarRegistrosDocente(const char* nombreArchivo) {
     FILE* p{fopen(nombreArchivo, "rb")};
 
@@ -213,7 +213,7 @@ int ArchivoManager::contarRegistrosDocente(const char* nombreArchivo) {
     fclose(p);
     return static_cast<int>(tamanio);
 }
-
+/*
 int ArchivoManager::contarRegistrosCurso(const char* nombreArchivo) {
     FILE* p{fopen(nombreArchivo, "rb")};
 
@@ -226,8 +226,8 @@ int ArchivoManager::contarRegistrosCurso(const char* nombreArchivo) {
 
     fclose(p);
     return static_cast<int>(tamanio);
-}*/
-
+}
+*/
 int ArchivoManager::contarRegistrosInscripcion(const char* nombreArchivo) {
 
     FILE* p{fopen(nombreArchivo, "rb")};
