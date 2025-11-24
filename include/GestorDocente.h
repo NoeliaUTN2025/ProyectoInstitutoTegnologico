@@ -23,6 +23,9 @@ public:
     void darBajaDocentes();
     void mostrarDocentesDeBaja() ;
 
+    void backup() const;
+    void restaurar() const;
+
 };
 
 

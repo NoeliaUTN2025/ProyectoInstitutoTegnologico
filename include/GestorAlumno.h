@@ -22,6 +22,9 @@ public:
     void darBajaAlumno();
     void mostrarAlumnosDeBaja() ;
 
+    void backup() const;
+    void restaurar() const;
+
 };
 
 

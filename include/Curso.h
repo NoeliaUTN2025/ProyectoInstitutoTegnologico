@@ -29,5 +29,6 @@ public:
     void setNumeroAula(int numeroAula);
     void setEliminado(bool eliminado);
 
+    void Mostrar() const;
 };
 

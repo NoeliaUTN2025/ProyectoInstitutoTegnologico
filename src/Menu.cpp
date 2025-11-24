@@ -16,8 +16,10 @@
 #include <iostream>
 #include "GestorAlumno.h"
 #include "GestorDocente.h"
+#include "GestorCursos.h"
+#include "GestorReportes.h"
 
-void Menu::start() {
+void Menu::start() const{
     int option;
     std::string menuOptions[]{
         "SISTEMA DE GESTION - INSTITUTO TECNOLOGICO", "1. Gestion de Alumnos",
@@ -109,6 +111,8 @@ void Menu::menuStudent()const {
 void Menu::menuTeacher()const {
     int option;
 
+
+
     std::string menuOptions[]{
         "GESTIÓN DE DOCENTES", "1. Alta de docente",
         "2. Listar docente", "3. Buscar docente por legajo","4. Buscar docente por DNI",
@@ -125,13 +129,13 @@ void Menu::menuTeacher()const {
     GestorDocente gestor;
 
         switch (option) {
-            case 1: //gestor.nuevoDocente(); break;
-            case 2: //gestor.listarDocentes(); break;
-            case 3: //gestor.buscarDocentesPorLegajo(); break;
-            case 4: //gestor.buscarDocentesPorDNI(); break;
-            case 5: //gestor.modificarDocentes(); break;
-            case 6: //gestor.darBajaDocentes(); break;
-            case 7: //gestor.mostrarDocentesDeBaja(); break;
+            case 1: gestor.nuevoDocente(); break;
+            case 2: gestor.listarDocentes(); break;
+            case 3: gestor.buscarDocentesPorLegajo(); break;
+            case 4: gestor.buscarDocentesPorDNI(); break;
+            case 5: gestor.modificarDocentes(); break;
+            case 6: gestor.darBajaDocentes(); break;
+            case 7: gestor.mostrarDocentesDeBaja(); break;
             case 0: break;
             default: std::cout << "Opcion invalida!\n"; system("pause");
         }
@@ -154,13 +158,15 @@ void Menu::menuCourse()const {
         draw(menuOptions, arrayLength);
         std::cin >> option;
 
+        GestorCursos gestor;
+
         switch (option) {
-            case 1: //@TODO: definir
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
+            case 1: gestor.nuevoCurso(); break;
+            case 2: gestor.listarCursos(); break;
+            case 3: gestor.buscarCursosPorID(); break;
+            case 4: gestor.modificarCursos (); break;
+            case 5: gestor.darBajaCurso(); break;
+            case 6: gestor.mostrarCursosDeBaja(); break;
             case 0: break;
             default: std::cout << "Opcion invalida!\n"; system("pause");
         }
@@ -184,18 +190,19 @@ void Menu::menuReports()const {
         std::cin >> option;
 
         GestorInscripcion gestor;
+        GestorReportes gestorR;
         switch (option) {
-            case 1: //@TODO: definir
-            case 2:
+            case 1: //gestorR.listarAlumnosPorCurso(); break;
+            case 2: // gestorR.listarCursosPorDocente(); break;
             case 3: gestor.listarInscripciones(); break;
-            case 4:
+            case 4: //gestorR.alumnosConMasInscripciones(); break;
             case 0: break;
             default: std::cout << "Opcion invalida!\n"; system("pause");
         }
     } while (option != 0);
 }
 
-void Menu::menuBackup() {
+void Menu::menuBackup() const {
     int option;
 
     std::string menuOptions[]{
@@ -210,7 +217,7 @@ void Menu::menuBackup() {
         std::cin >> option;
 
         switch (option) {
-            case 1: //realizarBackup(); break;  /// nota noe 19/11ESTE NO COMPLIABA
+            case 1: menuRealizarBackup(); break;
             case 2: menuRestaurar(); break;
             case 0: break;
             default: std::cout << "Opcion invalida!\n"; system("pause");
@@ -253,17 +260,17 @@ void Menu::menuRealizarBackup() const {
 
         switch (option) {
             case 1:
-                {/*
+                {
                 GestorAlumno gestor;
-                gestor.Backup(); break;*/
+                gestor.backup (); break;
             }
-            case 2: {/*
+            case 2: {
                 GestorDocente gestor;
-                gestor.Backup(); break;*/
+                gestor.backup(); break;
             }
-            case 3: {/*
-                GestorCurso gestor;
-                gestor.Backup(); break;*/
+            case 3: {
+                GestorCursos gestor;
+                gestor.backup(); break;
             }
             case 4: {
                 GestorInscripcion gestor;
@@ -293,18 +300,18 @@ void Menu::menuRestaurar() const {
 
         switch (option)
         {
-        case 1: /*{
+        case 1: {
             GestorAlumno gestor;
             gestor.restaurar(); break;
-        }*/
-        case 2: /*{
+        }
+        case 2: {
             GestorDocente gestor;
             gestor.restaurar(); break;
-        }*/
-        case 3: /*{
-            GestorCurso gestor;
+        }
+        case 3: {
+            GestorCursos gestor;
             gestor.restaurar(); break;
-        }*/
+        }
         case 4: {
             GestorInscripcion gestor;
             gestor.restaurar(); break;

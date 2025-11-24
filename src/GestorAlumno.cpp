@@ -339,3 +339,25 @@ while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos)){
         }
     }
 }
+
+void GestorAlumno::backup() const {
+    system("cls");
+    ArchivoManager archivo;
+
+    if (archivo.hacerBackup(NOMBRE_ARCHIVO, ARCHIVO_BAK)) {
+        std::cout << "BackUp realizado con exito!: \n"; system("pause");
+    } else {
+        std::cerr << "No se pudo realizar el BackUp!: \n"; system("pause");
+    }
+}
+
+void GestorAlumno::restaurar() const {
+    system("cls");
+    ArchivoManager archivo;
+
+    if (archivo.hacerBackup(ARCHIVO_BAK, NOMBRE_ARCHIVO)) {
+        std::cout << "La Restauracion fue exitosa!: \n"; system("pause");
+    } else {
+        std::cerr << "No se pudo realizar la Restauracion!: \n"; system("pause");
+    }
+}

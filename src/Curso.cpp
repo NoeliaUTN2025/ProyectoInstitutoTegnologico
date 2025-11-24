@@ -1,5 +1,5 @@
 #include "../include/Curso.h"
-
+#include <iostream>
 using namespace std;
 
 Curso::Curso() {
@@ -62,6 +62,12 @@ void Curso::setEliminado(bool  eliminado){
     _eliminado = eliminado;
 }
 
-
+void Curso::Mostrar() const {
+    cout << "Id Curso: " << _idCurso << endl;
+    cout << "Legajo Docente" << _legajoDocente << endl;
+    cout << "Nombre del curso" << _nombreCurso << endl;
+    cout << "Numero del aula" << _numeroAula << endl;
+    cout << "Eliminado" << (_eliminado ? "SI" : "NO" ) << endl;
+}
 
 
