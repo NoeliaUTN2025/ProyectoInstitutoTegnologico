@@ -6,7 +6,7 @@
 #include "GestorReportes.h"
 #include "ArchivoManager.h"
 using namespace std;
-/*
+
 void GestorReportes::listarAlumnosPorCurso() {
     int idCurso;
 
@@ -58,9 +58,9 @@ void GestorReportes::listarCursosPorDocente() {
 
 }
 
-void GestorReportes::listarInscripcionesEntreFechas() {
+/*void GestorReportes::listarInscripcionesEntreFechas() {
 
-}
+}*/
 
 void GestorReportes::alumnosConMasInscripciones() {
     Inscripcion insc;
@@ -70,7 +70,7 @@ void GestorReportes::alumnosConMasInscripciones() {
     int conteo [5000] = {};
 
     while (archivo.leerDeDisco("inscripcion.dat", insc, pos++)) {
-        if (!insc.getEliminado()) conteo[insc.getLegajoAlumno()++];
+        if (!insc.getEliminado())  conteo[insc.getLegajoAlumno()] ++;
     }
 
     int Max = 0;
@@ -92,4 +92,4 @@ void GestorReportes::alumnosConMasInscripciones() {
     }
           system("pause");
 
-}*/
+}

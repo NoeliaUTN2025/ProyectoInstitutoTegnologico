@@ -192,10 +192,10 @@ void Menu::menuReports()const {
         GestorInscripcion gestor;
         GestorReportes gestorR;
         switch (option) {
-            case 1: //gestorR.listarAlumnosPorCurso(); break;
-            case 2: // gestorR.listarCursosPorDocente(); break;
+            case 1: gestorR.listarAlumnosPorCurso(); break;
+            case 2: gestorR.listarCursosPorDocente(); break;
             case 3: gestor.listarInscripciones(); break;
-            case 4: //gestorR.alumnosConMasInscripciones(); break;
+            case 4: gestorR.alumnosConMasInscripciones(); break;
             case 0: break;
             default: std::cout << "Opcion invalida!\n"; system("pause");
         }

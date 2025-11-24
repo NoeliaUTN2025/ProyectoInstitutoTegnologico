@@ -11,10 +11,10 @@
 class GestorReportes {
 public:
 
-   // void listarAlumnosPorCurso();
- //   void listarCursosPorDocente();
-  //  void listarInscripcionesEntreFechas();
-  //  void alumnosConMasInscripciones();
+     void listarAlumnosPorCurso();
+     void listarCursosPorDocente();
+    // void listarInscripcionesEntreFechas();
+    void alumnosConMasInscripciones();
 
 };
 
