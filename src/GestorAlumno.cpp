@@ -38,6 +38,24 @@ bool GestorAlumno::existeDNI(const std::string &dni) {
     return false;
 }
 
+bool GestorAlumno::ValidarTexto (const std::string &texto)  {
+    if (texto.length() == 0) return false;
+
+    for (int i=0;i < texto.length(); i++){
+        char c = texto[i];
+
+        bool esMayus = (c >= 'A' && c <= 'Z');
+        bool esMinus = (c >= 'a' && c <= 'z');
+        bool esEspacio = (c = ' ');
+
+        if (!esMayus && !esMinus && esEspacio){
+
+            return false;
+        }
+    }
+    return true;
+}
+
 void GestorAlumno::nuevoAlumno(){
     Alumno nuevo;
     ArchivoManager archivo;
@@ -73,35 +91,40 @@ void GestorAlumno::nuevoAlumno(){
         continue;
     }
     if (existeDNI(dni)){
-        cout << "ERROR: Ya existe un alumno registrado con ese DNI" ;
+        cout << "ERROR: Ya existe un alumno registrado con ese DNI" << endl;
         continue;
     }
     break;
     }
+       cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     /// validar nombre
 
     while (true){
-    cout << "Ingrese el nombre:";
-    cin >> nombre;
-    if (nombre.size() == 0){
-        cout << "ERROR: El nombre no puede estar vacio.";
-    }
-    else break;
+    cout << "Ingrese el nombre: " << endl;
+    getline (cin, nombre);
 
+
+    if (!ValidarTexto(nombre)){
+        cout << "ERROR: El nombre solo puede contener letras y espacios" << endl;
+        continue;
     }
+    break;
+   }
+
 
    /// validad apellido
 
-    while (true){
-    cout << "Ingrese el apellido:";
-    cin >> apellido;
-    if (apellido.size() == 0){
-        cout << "ERROR: El nombre no puede estar vacio.";
-    }
-    else break;
+   while (true){
+    cout << "Ingrese el apellido: " << endl;
+    getline (cin, apellido);
 
-}
+    if (!ValidarTexto(apellido)){
+        cout << "ERROR: El apellido solo puede contener letras y espacios" << endl;
+        continue;
+    }
+    break;
+   }
 
     /// validar fecha
     while (true){

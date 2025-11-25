@@ -6,6 +6,7 @@
 #include <GestorDocente.h>
 #include <Docente.h>
 #include "ArchivoManager.h"
+#include<limits>
 using namespace std;
 
 int GestorDocente::obtenerUltimoLegajoDocente(){
@@ -24,6 +25,38 @@ int GestorDocente::obtenerUltimoLegajoDocente(){
 
 }
 
+bool GestorDocente::existeDNI(const std::string &dni) {
+    Docente  docente;
+    ArchivoManager archivo;
+    int pos = 0;
+
+    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, docente, pos++)){
+        if (!docente.getEliminado() && docente.getDni() == dni){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool GestorDocente::ValidarTexto (const std::string &texto)  {
+    if (texto.length() == 0) return false;
+
+    for (int i=0;i < texto.length(); i++){
+        char c = texto[i];
+
+        bool esMayus = (c >= 'A' && c <= 'Z');
+        bool esMinus = (c >= 'a' && c <= 'z');
+        bool esEspacio = (c = ' ');
+
+        if (!esMayus && !esMinus && esEspacio){
+
+            return false;
+        }
+    }
+    return true;
+}
+
+
 void GestorDocente::nuevoDocente(){
     Docente nuevoD;
     ArchivoManager archivo;
@@ -38,13 +71,65 @@ void GestorDocente::nuevoDocente(){
    string  dni, nombre, apellido, telefono, email, direccion;
     int dia, mes, anio;
 
-    cout << "Ingrese DNI del Docente:";
-    cin >> dni;
-    cout << "Ingrese el nombre:";
-    cin >> nombre;
-    cout << "Ingrese el apellido:";
-    cin >> apellido;
 
+    /// validar DNI
+
+    while (true){
+    cout << "Ingrese DNI del docente:";
+    cin >> dni;
+    if (dni.size() == 0){
+        cout << "ERROR: el DNI no puede estar vacio";
+        continue;
+    }
+    bool soloNumeros = true;
+    for (int i=0; i <dni.size(); i++){
+        if (dni[i] < '0' || dni[i] > '9'){
+            soloNumeros = false;
+            break;
+        }
+    }
+    if (!soloNumeros) {
+        cout << "ERROR: El DNI debe contener solo numeros";
+        continue;
+    }
+    if (existeDNI(dni)){
+        cout << "ERROR: Ya existe un docente registrado con ese DNI" << endl;
+        continue;
+    }
+    break;
+    }
+       cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    /// validar nombre
+
+    while (true){
+    cout << "Ingrese el nombre: " << endl;
+    getline (cin, nombre);
+
+
+    if (!ValidarTexto(nombre)){
+        cout << "ERROR: El nombre solo puede contener letras y espacios" << endl;
+        continue;
+    }
+    break;
+   }
+
+
+   /// validad apellido
+
+   while (true){
+    cout << "Ingrese el apellido: " << endl;
+    getline (cin, apellido);
+
+    if (!ValidarTexto(apellido)){
+        cout << "ERROR: El apellido solo puede contener letras y espacios" << endl;
+        continue;
+    }
+    break;
+   }
+
+    /// validar fecha
+    while (true){
     cout << "Ingrese la fecha de nacimiento: ";
     cout << "Dia:";
     cin >> dia;
@@ -53,17 +138,61 @@ void GestorDocente::nuevoDocente(){
     cout << "Año: ";
     cin >> anio;
 
+    if (anio < 1900 || anio > 2025){
+        cout << "ERROR: Año fuera de rango";
+        continue;
+    }
+    if (mes < 1 || mes > 12){
+        cout << "ERROR; Mes invalido";
+        continue;
+    }
+    int diasMes;
+    switch (mes) {
+    case 1: case 3: case 5: case 7:  case 8: case 10: case 12:
+        diasMes = 31; break;
+    case 4: case 6: case 9: case 11:
+        diasMes =30; break;
+    case 2:
+        diasMes = 29; break;
+
+    }
+    if (dia < 1 || dia > diasMes){
+        cout << "Dia invalido para ese mes, ingrese un dia correcto.";
+        continue;
+    }
+    break;
+}
+
+
     Fecha f;
     f.setDia(dia);
     f.setMes(mes);
     f.setAnio(anio);
 
-    cout << "Ingresel telefono: ";
-    cin >> telefono;
-    cout << "Ingrese el email: ";
-    cin >> email;
-    cout <<  "Ingrese la direccion: ";
-    cin  >> direccion;
+        ///validar telefono
+        while (true){
+            cout << "Ingrese el telefono: ";
+            cin >> telefono;
+        if (telefono.size() == 0) cout << "ERROR: Debe ingresar un telefono";
+        else break;
+        }
+
+        /// validar email
+        while (true){
+            cout << "Ingrese el Email: ";
+            cin >> email;
+        if (email.size() == 0) cout << "ERROR: Debe ingresar un email";
+        else break;
+        }
+
+        /// validar direccion
+        while (true){
+            cout << "Ingrese la direccion: ";
+            cin >> direccion;
+        if (direccion.size() == 0) cout << "ERROR: Debe ingresar un direccion";
+        else break;
+        }
+
 
     nuevoD.setLegajoDocente(legajo);
     nuevoD.setDni(dni);
@@ -82,24 +211,29 @@ void GestorDocente::nuevoDocente(){
 
 }
 
+
 void  GestorDocente::listarDocentes() {
     Docente docente;
-    int pos =0;
+    int pos = 0;
 
     ArchivoManager archivo;
 
-    cout << "------------LISTADO DE DOCENTES--------------" << endl;
+    cout << "-----------------------------------------------" << endl;
+    cout << "LISTADO DE DOCENTES" << endl;
+     cout << "-----------------------------------------------" << endl;
     cout << endl;
 
     while (archivo.leerDeDisco(NOMBRE_ARCHIVO, docente, pos)){
         if (!docente.getEliminado()){
             docente.Mostrar();
 
-            cout << "--------------------------------------------------------------" << endl;
+            cout << "-----------------------------------------------" << endl;
         }
+        pos++;
     }
-
+     system("pause");
 }
+
 
 
 void  GestorDocente::buscarDocentesPorLegajo() {
@@ -164,43 +298,52 @@ void GestorDocente::buscarDocentesPorDNI() {
                     cout << "Docente no enconcontrado"<< endl;
 
 }
-
+     system("pause");
 }
 
 
 void GestorDocente::modificarDocentes(){
     Docente docente;
-    int pos =0;
+    int pos = 0;
     std::string  dni;
 
     ArchivoManager archivo;
 
-    cout << "------------ MODIFICAR DOCENTE --------------" << endl;
+    cout << "-----------------------------------------------" << endl;
+    cout << "MODIFICAR DOCENTE " << endl;
+    cout << "-----------------------------------------------" << endl;
     cout << endl;
-    cout << "Ingrese el DNI del docente que desea modificar";
+    cout << "Ingrese el DNI del docente que desea modificar" << endl;
     cin >> dni;
+
+    bool encontrado = false;
 
 
     while (archivo.leerDeDisco(NOMBRE_ARCHIVO, docente, pos)){
         if (docente.getDni() ==  std::string (dni) && !docente.getEliminado()) {
 
-        cout << "----------DATOS ACTUALES--------------" << endl;
-        docente.Mostrar();
+    encontrado = true;
 
-        cout << "¿Que datos desea modificar?";
-        cout << "1. Nombre";
-        cout << "2. Apellido";
-        cout << "3. DNI";
-        cout << "4. Fecha de Nacimiento";
-        cout << "5. Telefono";
-        cout << "6. Email";
-        cout << "7. Direccion";
-        cout << "0. Cancelar";
-        cout << "Elija una opcion:";
+    cout << "-----------------------------------------------" << endl;
+    cout << "DATOS ACTUALES " << endl;
+    cout << "-----------------------------------------------" << endl;
+    cout << endl;
+
+        docente.Mostrar();
+        cout << "-----------------------------------------------" << endl;
+        cout << "¿Que datos desea modificar?"<< endl;
+        cout << "1. Nombre"<< endl;
+        cout << "2. Apellido"<< endl;
+        cout << "3. DNI"<< endl;
+        cout << "4. Fecha de Nacimiento"<< endl;
+        cout << "5. Telefono"<< endl;
+        cout << "6. Email"<< endl;
+        cout << "7. Direccion"<< endl;
+        cout << "0. Cancelar"<< endl;
+        cout << "Elija una opcion:"<< endl;
 
         int opcion;
         cin  >> opcion;
-
         cin.ignore();
 
         switch(opcion){
@@ -273,20 +416,22 @@ void GestorDocente::modificarDocentes(){
             system("pause");
             return;
         }
+    }
             archivo.sobrescribirRegistro(NOMBRE_ARCHIVO, docente, pos);
 
             cout << "Docente modificado con exito.";
             system("pause");
             return;
 
-        }
-        pos ++;
-
-        }
-                cout << "Docente no encontrado" << endl;
-                system("pause");
     }
+        pos ++;
+    }
+            if (!encontrado){
+                     cout << "Docente no encontrado" << endl;
+                        system("pause");
+        }
 }
+
 
 
 void GestorDocente::darBajaDocentes(){

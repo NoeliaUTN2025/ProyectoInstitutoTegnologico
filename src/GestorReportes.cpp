@@ -70,7 +70,11 @@ void GestorReportes::alumnosConMasInscripciones() {
     int conteo [5000] = {};
 
     while (archivo.leerDeDisco("inscripcion.dat", insc, pos++)) {
-        if (!insc.getEliminado())  conteo[insc.getLegajoAlumno()] ++;
+        if (!insc.getEliminado()) {
+            int leg =insc.getLegajoAlumno();
+            if (leg > 0 && leg < 5000) conteo[leg] ++;
+
+        }
     }
 
     int Max = 0;
@@ -78,14 +82,22 @@ void GestorReportes::alumnosConMasInscripciones() {
         if (conteo[i] > Max ){
             Max = conteo [i];
         }
+        if (Max == 0){
+            cout << "No hay inscripciones registrada" << endl;
+            system ("pause");
+            return;
+        }
         Alumno alu;
         pos = 0;
         cout << "ALumnos con mas inscripciones (" << Max <<  ") : ";
 
         while (archivo.leerDeDisco("alumnos.dat", alu, pos++)){
-            if (conteo [alu.getLegajoAlumno()] == Max) {
+                if (!alu.getEliminado() &&
+                    alu.getLegajoAlumno() < 500 &&
+                    conteo [alu.getLegajoAlumno () ] == Max)
+      {
                 alu.Mostrar();
-                cout << "Inscripciones: " << Max  << endl;
+                cout << "Cantidad de Inscripciones: " << Max  << endl;
                 cout << "--------------------------------------------------------";
             }
         }
