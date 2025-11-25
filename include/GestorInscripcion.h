@@ -27,6 +27,8 @@ public:
     void listarInscripciones() const;
     void backup() const;
     void restaurar() const;
+    void darDeBaja();
+    int validation() const;
 };
 
 #endif // GESTORINSCRIPCION_H

@@ -32,6 +32,7 @@ public:
     void setMes(int mes);
     void setAnio(int anio);
     std::string mostrar() const;
+    bool esFechaValida(int dia, int mes, int anio);
 };
 
 #endif // FECHA_H

@@ -32,7 +32,17 @@ void Menu::start() const{
     do {
         system("cls");
         draw(menuOptions, arrayLength);
-        std::cin >> option;
+
+        /**
+         * @brief Solucion a limpiado del Buffer, uso de std::cin.ignore()
+         *
+         * Previene problemas de entrada cuando se mezclan std::cin >> y std::getline()
+         *
+         * @see https://stackoverflow.com/questions/25475384/when-and-why-do-i-need-to-use-cin-ignore-in-c
+         * @see https://stackoverflow.com/a/25476169 Respuesta de: user4581301
+         */
+
+        option = validation();
 
         switch (option) {
             case 1: menuStudent(); break;
@@ -42,7 +52,9 @@ void Menu::start() const{
             case 5: menuReports(); break;
             case 6: menuBackup(); break;
             case 0: std::cout << "Saliendo...\n"; break;
-            default: std::cout << "Opcion invalida!\n"; system("pause");
+            default: std::cout << "Opcion invalida!\n";
+            std::cout << "Presione ENTER continuar...";
+            std::cin.ignore(1000, '\n');
         }
     } while (option != 0);
 }
@@ -52,8 +64,8 @@ void Menu::menuRegistration()const {
 
     std::string menuOptions[]{
         "GESTION DE INCRIPCIONES", "1. Nueva inscripción",
-        "2. Buscar inscripciones por alumno", "3. Buscar inscripciones por docente",
-        "4. Buscar inscripciones por curso", "5. Dar de baja inscripción",
+        "2. Buscar Inscripcion", "3. Modificar Inscripcion",
+        "4. Dar de Baja Inscripcion", "5. Recuperar Inscripción",
         "0. Volver al menú principal" };
 
         int arrayLength{ sizeof(menuOptions) / sizeof(std::string) };
@@ -69,7 +81,7 @@ void Menu::menuRegistration()const {
             case 2:
             case 3:
             case 4:
-            case 5:
+            case 5: menuBaja();
             case 0: break;
             default: std::cout << "Opcion invalida!\n"; system("pause");
         }
@@ -321,3 +333,74 @@ void Menu::menuRestaurar() const {
         }
     } while (option != 0);
 }
+
+
+int Menu::validation() const {
+
+    std::string entry;
+    std::getline(std::cin, entry);
+
+    /**
+     * @brief Uso de empty(), para verificar string vacios.
+     *
+     * @see https://en.cppreference.com/w/cpp/string/basic_string/empty.html
+     */
+    bool isNumber = !entry.empty();
+
+    for (size_t i{0}; i < entry.size(); ++i) {
+        if (entry[i] < '0' || entry[i] > '9') {
+            isNumber = false;
+            break;
+        }
+    }
+
+    int option;
+
+    /**
+     *  @brief Uso de substr(), para evitar overflow.
+     *  @brief Uso de stoi(), para convertir a entero.
+     *
+     *  @see https://en.cppreference.com/w/cpp/string/basic_string/substr.html
+     *  @see https://en.cppreference.com/w/cpp/string/basic_string/stol.html
+     */
+
+    if (isNumber) {
+        std::string twoDigit = entry.substr(0, 2);
+        option = std::stoi(twoDigit);
+    }
+    else {
+        option = -1;
+    }
+    return option;
+}
+
+void Menu::menuBaja() const {
+    int option;
+
+    std::string menuOptions[]{
+        "OPCIONES DE BAJA DE INSCRIPCION", "1. Ingresar el ID Inscripcion a Dar de Baja",
+        "\n** Si no recuerda el Id de Inscripcion, busquelo por: **", "2. Legajo del Alumno",
+        "3. DNI", "4. Id Del Curso",
+        "0. Atras" };
+
+        int arrayLength{ sizeof(menuOptions) / sizeof(std::string) };
+
+        do {
+        system("cls");
+        draw(menuOptions, arrayLength);
+        option = validation();
+
+        GestorInscripcion gestor;
+        switch (option) {
+            case 1: gestor.darDeBaja(); break;
+            case 2: //menuRestaurar(); break;
+            case 3: //realizarBackup(); break;  /// nota noe 19/11ESTE NO COMPLIABA
+            case 4: //menuRestaurar(); break;
+            case 0: break;
+            default: std::cout << "Opcion invalida!\n";
+            std::cout << "Presione ENTER continuar...";
+            std::cin.ignore(1000, '\n');
+        }
+    } while (option != 0);
+}
+

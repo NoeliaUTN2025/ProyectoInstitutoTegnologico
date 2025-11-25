@@ -29,6 +29,7 @@ public:
     void menuRealizarBackup() const;
     void menuRestaurar()const;
     int validation() const;
+    void menuBaja() const;
 };
 
 #endif // MENU_H

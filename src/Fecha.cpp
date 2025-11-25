@@ -11,6 +11,7 @@
  */
 
 #include "Fecha.h"
+#include <iostream>
 
 
 Fecha::Fecha() : m_dia(1), m_mes(1), m_anio(1900) {}
@@ -60,4 +61,36 @@ std::string Fecha::mostrar() const {
         };
 
     return fecha;
+}
+
+bool Fecha::esFechaValida(int dia, int mes, int anio) {
+
+    // Años razonables para tu sistema
+    if (anio < 1900 || anio > 2100) {
+        std::cout << "Error!: el anio debe estar entre 1900 y 2100.\n";
+        system("pause");
+        return false;
+    }
+
+    if (mes < 1 || mes > 12) {
+        std::cout << "Error!: El mes no puede ser menor a 1 ni mayor a 12.\n";
+        system("pause");
+        return false;
+    }
+
+    int diasEnMes[]{ 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+    // Año bisiesto
+    if ((anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0)) {
+        diasEnMes[2] = 29;
+    }
+
+    if (dia < 1 || dia > diasEnMes[mes]) {
+        std::cout << "Error!: El día no puede ser menor a 1 ni mayor a "
+                  << diasEnMes[mes] << ".\n";
+                  system("pause");
+        return false;
+    }
+
+    return true;
 }
