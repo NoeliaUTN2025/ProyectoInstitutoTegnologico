@@ -17,11 +17,14 @@ int GestorCursos::obtenerUltimoIdCurso(){
     ArchivoManager archivo;
 
     while (archivo.leerDeDisco(NOMBRE_ARCHIVO, curso, pos)){
-        if (curso.getIdCurso() > ultimo)
+        if (curso.getIdCurso() > ultimo){
             ultimo = curso.getIdCurso();
     }
+    pos++;
+}
     return ultimo + 1;
 }
+
 
 void GestorCursos::nuevoCurso() {
     Curso nuevoC;
@@ -59,14 +62,19 @@ void GestorCursos::listarCursos() {
     ArchivoManager archivo;
     int pos = 0;
 
-    cout << "--------------LISTADO DE CURSOS -----------" << endl;
+    cout << "-----------------------------------------------" << endl;
+    cout << "LISTADO DE CURSOS "<< endl;
+    cout << "-----------------------------------------------" << endl;
+
 
     while (archivo.leerDeDisco(NOMBRE_ARCHIVO, listar, pos++)) {
         if (!listar.getEliminado()) {
              listar.Mostrar();
-             cout << "----------------------------------------------";
+    cout << "-----------------------------------------------" << endl;
         }
+
     }
+         system ("pause");
 }
 
 void GestorCursos::buscarCursosPorID() {
@@ -80,14 +88,15 @@ void GestorCursos::buscarCursosPorID() {
 
     while (archivo.leerDeDisco(NOMBRE_ARCHIVO, buscarCurso ,pos++)) {
         if (!buscarCurso.getEliminado() && buscarCurso.getIdCurso() == id) {
-            cout << "Curso encontrado: ";
+            cout << "Curso encontrado: "<< endl;
+            cout << "-----------------------------------------------" << endl;
             buscarCurso.Mostrar();
             system ("pause");
             return;
         }
     }
 
-    cout << "ID no encontrado";
+    cout << "ID no encontrado" << endl;
       system ("pause");
 }
 
@@ -100,17 +109,18 @@ void GestorCursos::modificarCursos() {
     cout << " Ingrese el ID del curso a modificar: ";
     cin  >> IDBuscar;
 
-    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, ModCurso, pos++)) {
+    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, ModCurso, pos)) {
         if (ModCurso.getIdCurso() == IDBuscar && !ModCurso.getEliminado()) {
-            cout << "Mostrar datos actuales ";
+            cout << "DATOS DEL CURSO A MODIFICAR "<< endl;
             ModCurso.Mostrar();
 
-            cout << "Seleccione el dato a modificar: ";
-            cout << "1. Nombre del curso";
-            cout << "2. Numero de aula ";
-            cout << "3. Legajo del Docente";
-            cout << "0. Cancelar";
-            cout << "Opcion: ";
+            cout << endl;
+            cout << "Seleccione el dato a modificar: " << endl;
+            cout << "1. Nombre del curso"<< endl;
+            cout << "2. Numero de aula " << endl;
+            cout << "3. Legajo del Docente"<< endl;
+            cout << "0. Cancelar"<< endl;
+            cout << "Elija una Opcion: "<< endl;
 
             int opcion;
             cin >> opcion;
@@ -188,12 +198,14 @@ void  GestorCursos::mostrarCursosDeBaja() {
     ArchivoManager archivo;
     int pos =0;
 
-    cout << "---------------CURSOS DADOS DE BAJA-------------" << endl;
+    cout << "-----------------------------------------------" << endl;
+    cout << "CURSOS DADOS DE BAJA "<< endl;
+    cout << "-----------------------------------------------" << endl;
 
     while (archivo.leerDeDisco(NOMBRE_ARCHIVO, MostarCursoBaja, pos++)) {
         if (MostarCursoBaja.getEliminado()){
             MostarCursoBaja.Mostrar();
-            cout << "-------------------------------------------------------" << endl;
+    cout << "-----------------------------------------------" << endl;
         }
     }
     system ("pause");

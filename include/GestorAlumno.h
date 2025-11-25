@@ -21,6 +21,7 @@ public:
     void modificarAlumno();
     void darBajaAlumno();
     void mostrarAlumnosDeBaja() ;
+    bool existeDNI(const std::string &dni);
 
     void backup() const;
     void restaurar() const;

@@ -6,6 +6,7 @@
 #include "GestorAlumno.h"
 #include "Alumno.h"
 #include "ArchivoManager.h"
+#include<limits>
 using namespace std;
 
 int GestorAlumno::obtenerUltimoLegajo(){
@@ -24,27 +25,86 @@ int GestorAlumno::obtenerUltimoLegajo(){
 
 }
 
+bool GestorAlumno::existeDNI(const std::string &dni) {
+    Alumno alumno;
+    ArchivoManager archivo;
+    int pos = 0;
+
+    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos++)){
+        if (!alumno.getEliminado() && alumno.getDni() == dni){
+            return true;
+        }
+    }
+    return false;
+}
+
 void GestorAlumno::nuevoAlumno(){
     Alumno nuevo;
     ArchivoManager archivo;
 
     int legajo = obtenerUltimoLegajo();
-    cout << "--------------------------------------------------------" << endl;
-    cout << "-----------ALTA DE NUEVO ALUMNO -----------"<< endl;
-    cout << "--------------------------------------------------------" << endl;
+    cout << "-----------------------------------------------" << endl;
+    cout << "ALTA DE NUEVO ALUMNO "<< endl;
+    cout << "-----------------------------------------------" << endl;
     cout << "Legajo Asignado: " << legajo << endl;
     cout << endl;
 
    string  dni, nombre, apellido, telefono, email, direccion;
     int dia, mes, anio;
 
+    /// validar DNI
+
+    while (true){
     cout << "Ingrese DNI del alumno:";
     cin >> dni;
+    if (dni.size() == 0){
+        cout << "ERROR: el DNI no puede estar vacio";
+        continue;
+    }
+    bool soloNumeros = true;
+    for (int i=0; i <dni.size(); i++){
+        if (dni[i] < '0' || dni[i] > '9'){
+            soloNumeros = false;
+            break;
+        }
+    }
+    if (!soloNumeros) {
+        cout << "ERROR: El DNI debe contener solo numeros";
+        continue;
+    }
+    if (existeDNI(dni)){
+        cout << "ERROR: Ya existe un alumno registrado con ese DNI" ;
+        continue;
+    }
+    break;
+    }
+
+    /// validar nombre
+
+    while (true){
     cout << "Ingrese el nombre:";
     cin >> nombre;
+    if (nombre.size() == 0){
+        cout << "ERROR: El nombre no puede estar vacio.";
+    }
+    else break;
+
+    }
+
+   /// validad apellido
+
+    while (true){
     cout << "Ingrese el apellido:";
     cin >> apellido;
+    if (apellido.size() == 0){
+        cout << "ERROR: El nombre no puede estar vacio.";
+    }
+    else break;
 
+}
+
+    /// validar fecha
+    while (true){
     cout << "Ingrese la fecha de nacimiento: ";
     cout << "Dia:";
     cin >> dia;
@@ -53,17 +113,61 @@ void GestorAlumno::nuevoAlumno(){
     cout << "Año: ";
     cin >> anio;
 
+    if (anio < 1900 || anio > 2025){
+        cout << "ERROR: Año fuera de rango";
+        continue;
+    }
+    if (mes < 1 || mes > 12){
+        cout << "ERROR; Mes invalido";
+        continue;
+    }
+    int diasMes;
+    switch (mes) {
+    case 1: case 3: case 5: case 7:  case 8: case 10: case 12:
+        diasMes = 31; break;
+    case 4: case 6: case 9: case 11:
+        diasMes =30; break;
+    case 2:
+        diasMes = 29; break;
+
+    }
+    if (dia < 1 || dia > diasMes){
+        cout << "Dia invalido para ese mes, ingrese un dia correcto.";
+        continue;
+    }
+    break;
+}
+
+
     Fecha f;
     f.setDia(dia);
     f.setMes(mes);
     f.setAnio(anio);
 
-    cout << "Ingresel telefono: ";
-    cin >> telefono;
-    cout << "Ingrese el email: ";
-    cin >> email;
-    cout <<  "Ingrese la direccion: ";
-    cin  >> direccion;
+        ///validar telefono
+        while (true){
+            cout << "Ingrese el telefono: ";
+            cin >> telefono;
+        if (telefono.size() == 0) cout << "ERROR: Debe ingresar un telefono";
+        else break;
+        }
+
+        /// validar email
+        while (true){
+            cout << "Ingrese el Email: ";
+            cin >> email;
+        if (email.size() == 0) cout << "ERROR: Debe ingresar un email";
+        else break;
+        }
+
+        /// validar direccion
+        while (true){
+            cout << "Ingrese la direccion: ";
+            cin >> direccion;
+        if (direccion.size() == 0) cout << "ERROR: Debe ingresar un direccion";
+        else break;
+        }
+
 
     nuevo.setLegajoAlumno(legajo);
     nuevo.setDni(dni);
@@ -88,17 +192,20 @@ void  GestorAlumno::listarAlumnos() {
 
     ArchivoManager archivo;
 
-    cout << "------------LISTADO DE ALUMNOS--------------" << endl;
+    cout << "-----------------------------------------------" << endl;
+    cout << "LISTADO DE ALUMNOS" << endl;
+     cout << "-----------------------------------------------" << endl;
     cout << endl;
 
     while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos)){
         if (!alumno.getEliminado()){
             alumno.Mostrar();
 
-            cout << "--------------------------------------------------------------" << endl;
+            cout << "-----------------------------------------------" << endl;
         }
+        pos++;
     }
-
+     system("pause");
 }
 
 
@@ -110,7 +217,9 @@ void  GestorAlumno::buscarAlumnosPorLegajo() {
 
     ArchivoManager archivo;
 
-    cout << "------------ BUSCAR ALUMNOS POR LEGAJO--------------" << endl;
+    cout << "-----------------------------------------------" << endl;
+    cout << " BUSCAR ALUMNOS POR LEGAJO" << endl;
+     cout << "-----------------------------------------------" << endl;
     cout << endl;
     cout << "Ingrese el Legajo del alumno:";
     cin  >> legajo;
@@ -118,19 +227,20 @@ void  GestorAlumno::buscarAlumnosPorLegajo() {
     bool encontrado = false;
 
     while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos++)){
-        if (!alumno.getEliminado() && alumno.getLegajoAlumno() == legajo)
+        if (!alumno.getEliminado() && alumno.getLegajoAlumno() == legajo){
 
-            cout << "------------------Alumno encontrado--------------------";
+    cout << "-----------------------------------------------" << endl;
         alumno.Mostrar();
 
         encontrado = true;
         break;
     }
+}
                 if (!encontrado){
                     cout << "Alumno no enconcontrado"<< endl;
 
 }
-
+     system("pause");
 }
 
 
@@ -143,28 +253,40 @@ void GestorAlumno::buscarAlumnosPorDNI() {
 
     ArchivoManager archivo;
 
-    cout << "------------ BUSCAR ALUMNOS POR DNI--------------" << endl;
+    cout << "-----------------------------------------------" << endl;
+    cout << "BUSCAR ALUMNOS POR DNI" << endl;
+    cout << "-----------------------------------------------" << endl;
     cout << endl;
-    cout << "Ingrese el DNI del alumno:";
+    cout << "Ingrese el DNI del alumno:" << endl;
     cin  >> dni;
 
     bool encontrado = false;
+    bool eliminado = false;
 
     while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos)) {
-        if (!alumno.getEliminado() && alumno.getDni() ==  std::string (dni)){
-
-        cout << "------------------Alumno encontrado--------------------";
-        alumno.Mostrar();
+            if (alumno.getDni()== dni){
+                if (alumno.getEliminado()){
+                    eliminado = true;
+                } else{
+        cout << "-----------------------------------------------" << endl;
+        cout << "Alumno encontrado"<< endl;
+        cout << "-----------------------------------------------" << endl;
+                    alumno.Mostrar();
+                }
 
         encontrado = true;
         break;
     }
+    pos++;
     }
                 if (!encontrado){
-                    cout << "Alumno no enconcontrado"<< endl;
+                    cout << "No existe ningun alumno con  ese DNI"<< endl;
 
 }
-
+    else  if (eliminado) {
+            cout << "El alumno se encuentra DADO DE BAJA" << endl;
+    }
+     system("pause");
 }
 
 
@@ -175,32 +297,41 @@ void GestorAlumno::modificarAlumno(){
 
     ArchivoManager archivo;
 
-    cout << "------------ MODIFICAR ALUMNO --------------" << endl;
+    cout << "-----------------------------------------------" << endl;
+    cout << "MODIFICAR ALUMNO " << endl;
+    cout << "-----------------------------------------------" << endl;
     cout << endl;
-    cout << "Ingrese el DNI del alumno que desea modificar";
+    cout << "Ingrese el DNI del alumno que desea modificar" << endl;
     cin >> dni;
+
+    bool encontrado = false;
 
 
     while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos)){
         if (alumno.getDni() ==  std::string (dni) && !alumno.getEliminado()) {
 
-        cout << "----------DATOS ACTUALES--------------" << endl;
-        alumno.Mostrar();
+    encontrado = true;
 
-        cout << "¿Que datos desea modificar?";
-        cout << "1. Nombre";
-        cout << "2. Apellido";
-        cout << "3. DNI";
-        cout << "4. Fecha de Nacimiento";
-        cout << "5. Telefono";
-        cout << "6. Email";
-        cout << "7. Direccion";
-        cout << "0. Cancelar";
-        cout << "Elija una opcion:";
+    cout << "-----------------------------------------------" << endl;
+    cout << "DATOS ACTUALES " << endl;
+    cout << "-----------------------------------------------" << endl;
+    cout << endl;
+
+        alumno.Mostrar();
+        cout << "-----------------------------------------------" << endl;
+        cout << "¿Que datos desea modificar?"<< endl;
+        cout << "1. Nombre"<< endl;
+        cout << "2. Apellido"<< endl;
+        cout << "3. DNI"<< endl;
+        cout << "4. Fecha de Nacimiento"<< endl;
+        cout << "5. Telefono"<< endl;
+        cout << "6. Email"<< endl;
+        cout << "7. Direccion"<< endl;
+        cout << "0. Cancelar"<< endl;
+        cout << "Elija una opcion:"<< endl;
 
         int opcion;
         cin  >> opcion;
-
         cin.ignore();
 
         switch(opcion){
@@ -273,55 +404,128 @@ void GestorAlumno::modificarAlumno(){
             system("pause");
             return;
         }
+    }
             archivo.sobrescribirRegistro(NOMBRE_ARCHIVO, alumno, pos);
 
             cout << "Alumno modificado con exito.";
             system("pause");
             return;
 
-        }
-        pos ++;
-
-        }
-                cout << "Alumno no encontrado" << endl;
-                system("pause");
     }
+        pos ++;
+    }
+            if (!encontrado){
+                     cout << "Alumno no encontrado" << endl;
+                        system("pause");
+        }
 }
 
 
 void GestorAlumno::darBajaAlumno(){
-    std::string  dni;
-
-    cout << "Ingrese el dni del alumno que desea dar de baja: ";
-    cin  >>  dni;
-
-    Alumno bajaAlumno;
+    int opcion;
+    cout << "-----------------------------------------------" << endl;
+    cout << "BAJA DE ALUMNO " << endl;
+    cout << "-----------------------------------------------" << endl;
+    cout << "Como deseas buscar al alumno?" << endl;
+    cout << "1. por DNI" << endl;
+    cout << "2. Por Legajo" << endl;
+    cout << "Opcion: " << endl;
+    cin  >> opcion;
 
 ArchivoManager archivo;
+Alumno bajaAlumno;
 int pos = 0;
 bool encontrado = false;
 
+    std::string  dni;
+    int legajo;
+
+    ////////////POR DNI////////////
+
+    if (opcion == 1){
+    cout << "Ingrese el dni del alumno que desea dar de baja: ";
+    cin  >>  dni;
+
+
 while (archivo.leerDeDisco(NOMBRE_ARCHIVO, bajaAlumno, pos)) {
     if (bajaAlumno.getDni() == dni && !bajaAlumno.getEliminado()){
-
-        bajaAlumno.setEliminado(true);
-        archivo.sobrescribirRegistro(NOMBRE_ARCHIVO, bajaAlumno, pos);
-
-        cout << "Alumno dado de baja correctamente";
-        system ("pause");
-
         encontrado = true;
-        break;
+
+    cout << "-----------------------------------------------" << endl;
+    cout << "DATOS ACTUALES " << endl;
+    cout << "-----------------------------------------------" << endl;
+        bajaAlumno.Mostrar();
+
+        char confirmar;
+        cout << "¿Confirma la baja del alumno? (S/N: )";
+        cin >> confirmar;
+
+        if (confirmar == 'S' || confirmar == 's'){
+            bajaAlumno.setEliminado(true);
+            archivo.sobrescribirRegistro(NOMBRE_ARCHIVO, bajaAlumno, pos);
+            cout << "Alumno dado de baja correctamente"<< endl;
+        } else {
+            cout << "Baja cancelada por el usuario" << endl;
+        }
+
+        system ("pause");
+       return;
 
     }
     pos++;
 }
-        if (!encontrado){
-        cout << "DNI no encontrado";
+
+        cout << "ERROR: DNI no encontrado"<< endl;
         system ("pause");
+       return;
+}
+
+
+    /////////////POR LEGAJO///////////
+
+else if (opcion == 2){
+    cout << "Ingrese el legajo del alumno que desea dar de baja: ";
+    cin  >>  legajo;
+
+
+while (archivo.leerDeDisco(NOMBRE_ARCHIVO, bajaAlumno, pos)) {
+    if (bajaAlumno.getLegajoAlumno() == legajo && !bajaAlumno.getEliminado()){
+        encontrado = true;
+
+    cout << "-----------------------------------------------" << endl;
+    cout << "DATOS ACTUALES " << endl;
+    cout << "-----------------------------------------------" << endl;
+        bajaAlumno.Mostrar();
+
+        char confirmar;
+        cout << "¿Confirma la baja del alumno? (S/N: )";
+        cin >> confirmar;
+
+        if (confirmar == 'S' || confirmar == 's'){
+            bajaAlumno.setEliminado(true);
+            archivo.sobrescribirRegistro(NOMBRE_ARCHIVO, bajaAlumno, pos);
+            cout << "Alumno dado de baja correctamente"<< endl;
+        } else {
+            cout << "Baja cancelada por el usuario" << endl;
         }
 
+        system ("pause");
+       return;
+
     }
+    pos++;
+}
+        cout << "ERROR: Legajo no encontrado"<< endl;
+        system ("pause");
+       return;
+        }
+        else {
+            cout << "Opcion inválida." << endl;
+        system ("pause");
+       return;
+        }
+}
+
 
 
 void GestorAlumno::mostrarAlumnosDeBaja(){
@@ -329,15 +533,19 @@ void GestorAlumno::mostrarAlumnosDeBaja(){
     ArchivoManager archivo;
     int pos = 0;
 
-    cout << "-----------ALUMNOS DADOS DE BAJA-------------"<< endl;
+    cout << "-----------------------------------------------" << endl;
+    cout << "ALUMNOS DADOS DE BAJA " << endl;
+    cout << "-----------------------------------------------" << endl;
 
 while (archivo.leerDeDisco(NOMBRE_ARCHIVO, alumno, pos)){
     if (alumno.getEliminado() ){
             alumno.Mostrar();
-    cout << "------------------------------------------------------------";
+    cout << "-----------------------------------------------" << endl;
 
         }
+        pos++;
     }
+         system("pause");
 }
 
 void GestorAlumno::backup() const {

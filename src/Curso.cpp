@@ -64,10 +64,10 @@ void Curso::setEliminado(bool  eliminado){
 
 void Curso::Mostrar() const {
     cout << "Id Curso: " << _idCurso << endl;
-    cout << "Legajo Docente" << _legajoDocente << endl;
-    cout << "Nombre del curso" << _nombreCurso << endl;
-    cout << "Numero del aula" << _numeroAula << endl;
-    cout << "Eliminado" << (_eliminado ? "SI" : "NO" ) << endl;
+    cout << "Legajo Docente: " << _legajoDocente << endl;
+    cout << "Nombre del curso: " << _nombreCurso << endl;
+    cout << "Numero del aula: " << _numeroAula << endl;
+    cout << "Eliminado: " << (_eliminado ? "SI" : "NO" ) << endl;
 }
 
 

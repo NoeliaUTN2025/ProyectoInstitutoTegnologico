@@ -23,7 +23,7 @@ Alumno:: Alumno (const char dni [], const char nombre [], const char apellido []
  }
 
  void Alumno::Mostrar() const {
-     cout << "---------------------------------------------------" << endl;
+     cout << "-----------------------------------------------" << endl;
      cout << "Legajo Alumno: " << _legajoAlumno << endl;
      cout << "Nombre y Apellido: " << _nombre << " " << _apellido << endl;
      cout << "Dni: " << _dni << endl;
@@ -34,6 +34,7 @@ Alumno:: Alumno (const char dni [], const char nombre [], const char apellido []
      cout << "Telefono: " << _telefono << endl;
      cout << "Email: " << _email << endl;
      cout << "Direccion: " << _direccion << endl;
+
  }
 
 
