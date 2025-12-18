@@ -31,7 +31,7 @@ void GestorCursos::nuevoCurso() {
     ArchivoManager archivo;
 
     int id = obtenerUltimoIdCurso();
-    cout << "ID asignado" << id << endl;
+    cout << "ID asignado: " << id << endl;
 
     string nombreCurso;
     int aula, legajoDocente;
@@ -115,12 +115,14 @@ void GestorCursos::modificarCursos() {
             ModCurso.Mostrar();
 
             cout << endl;
+            cout << endl;
             cout << "Seleccione el dato a modificar: " << endl;
             cout << "1. Nombre del curso"<< endl;
             cout << "2. Numero de aula " << endl;
             cout << "3. Legajo del Docente"<< endl;
             cout << "0. Cancelar"<< endl;
             cout << "Elija una Opcion: "<< endl;
+            cout << endl;
 
             int opcion;
             cin >> opcion;

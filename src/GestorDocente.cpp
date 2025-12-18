@@ -63,10 +63,11 @@ void GestorDocente::nuevoDocente(){
 
     int legajo = obtenerUltimoLegajoDocente();
     cout << "--------------------------------------------------------" << endl;
-    cout << "-----------ALTA DE NUEVO DOCENTE -----------"<< endl;
+    cout << "ALTA DE NUEVO DOCENTE "<< endl;
     cout << "--------------------------------------------------------" << endl;
     cout << "Legajo Asignado: " << legajo << endl;
     cout << endl;
+
 
    string  dni, nombre, apellido, telefono, email, direccion;
     int dia, mes, anio;
@@ -223,7 +224,7 @@ void  GestorDocente::listarDocentes() {
      cout << "-----------------------------------------------" << endl;
     cout << endl;
 
-    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, docente, pos)){
+    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, docente, pos++)){
         if (!docente.getEliminado()){
             docente.Mostrar();
 
@@ -244,7 +245,7 @@ void  GestorDocente::buscarDocentesPorLegajo() {
 
     ArchivoManager archivo;
 
-    cout << "------------ BUSCAR DOCENTRD POR LEGAJO--------------" << endl;
+    cout << "------------ BUSCAR DOCENTE POR LEGAJO--------------" << endl;
     cout << endl;
     cout << "Ingrese el Legajo del docente:";
     cin  >> legajo;
@@ -261,10 +262,10 @@ void  GestorDocente::buscarDocentesPorLegajo() {
         break;
     }
                 if (!encontrado){
-                    cout << "Docente no enconcontrado"<< endl;
+                    cout << "Docente no encontrado"<< endl;
 
 }
-
+     system("pause");
 }
 
 
@@ -284,10 +285,10 @@ void GestorDocente::buscarDocentesPorDNI() {
 
     bool encontrado = false;
 
-    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, docente, pos)) {
+    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, docente, pos++)) {
         if (!docente.getEliminado() && docente.getDni() ==  std::string (dni)){
 
-        cout << "------------------Docente encontrado--------------------";
+        cout << "------------------Docente encontrado--------------------" <<endl;
         docente.Mostrar();
 
         encontrado = true;
@@ -473,17 +474,22 @@ void GestorDocente::mostrarDocentesDeBaja(){
      Docente docente;
     int pos =0;
     ArchivoManager archivo;
-
+    bool hayBaja = false;
 
     cout << "-----------DOCENTES DADOS DE BAJA-------------"<< endl;
 
-while (archivo.leerDeDisco(NOMBRE_ARCHIVO, docente, pos)){
+while (archivo.leerDeDisco(NOMBRE_ARCHIVO, docente, pos++)){
     if (docente.getEliminado() ){
             docente.Mostrar();
     cout << "------------------------------------------------------------";
+     hayBaja = true;
 
         }
-    }
+}
+        if (!hayBaja) {
+            cout << "No hay Docentes dados de baja" << endl;
+        }
+        system("pause");
 }
 
 void GestorDocente::backup() const {
