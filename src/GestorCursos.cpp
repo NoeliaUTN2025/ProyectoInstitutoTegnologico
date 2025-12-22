@@ -185,6 +185,8 @@ void GestorCursos::darBajaCurso()  {
             bajaCurso.setEliminado(true);
             archivo.sobrescribirRegistro(NOMBRE_ARCHIVO,bajaCurso, pos);
 
+
+
             cout << "Curso dado de baja correctamente";
             system ("pause");
             return;

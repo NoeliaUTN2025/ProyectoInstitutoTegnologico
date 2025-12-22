@@ -22,9 +22,15 @@ private:
 
 public:
     GestorInscripcion() = default;
+    bool existeAlumno(int);
+     bool existeCurso(int);
+      bool existeInscripcion(int, int);
     void nuevaInscripcion();
     int obtenerUltimoId();
     void listarInscripciones() const;
+    void modificarInscripciones();
+    void buscarInscripcionPorId() const;
+    void recuperarInscripcion();
     void backup() const;
     void restaurar() const;
     void darDeBaja();

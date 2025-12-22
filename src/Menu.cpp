@@ -78,10 +78,10 @@ void Menu::menuRegistration() const {
 
         switch (option) {
             case 1: gestor.nuevaInscripcion();
-            case 2:
-            case 3:
-            case 4:
-            case 5: menuBaja();
+            case 2: gestor.buscarInscripcionPorId();
+            case 3: gestor.modificarInscripciones();
+            case 4: gestor.darDeBaja();
+            case 5: gestor.recuperarInscripcion();
             case 0: break;
             default: std::cout << "Opcion invalida!\n";
             std::cout << "Presione ENTER continuar...";
@@ -407,9 +407,9 @@ void Menu::menuBaja() const {
         GestorInscripcion gestor;
         switch (option) {
             case 1: gestor.darDeBaja(); break;
-            case 2: //menuRestaurar(); break;
-            case 3: //realizarBackup(); break;  /// nota noe 19/11ESTE NO COMPLIABA
-            case 4: //menuRestaurar(); break;
+            case 2: menuRestaurar(); break;
+            case 3: //realizarBackup(); break;
+            case 4: menuRestaurar(); break;
             case 0: break;
             default: std::cout << "Opcion invalida!\n";
             std::cout << "Presione ENTER continuar...";

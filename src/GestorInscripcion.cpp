@@ -29,21 +29,112 @@ int GestorInscripcion::obtenerUltimoId() {
     return ultimoID + 1;
 }
 
+bool GestorInscripcion::existeAlumno(int legajo)  {
+    Alumno Alumn;
+    ArchivoManager archivo;
+    int pos = 0;
+
+
+    while (archivo.leerDeDisco("alumnos.dat", Alumn, pos++)){
+        if (Alumn.getLegajoAlumno () == legajo && ! Alumn.getEliminado()){
+            return true;
+        }
+    }
+ return false;
+}
+
+bool GestorInscripcion::existeCurso(int idCurso)  {
+    Curso Curs;
+    ArchivoManager archivo;
+    int pos = 0;
+
+
+
+    while (archivo.leerDeDisco("cursos.dat", Curs, pos++)){
+        if (Curs.getIdCurso() == idCurso && ! Curs.getEliminado()){
+            return true;
+        }
+    }
+return false;
+}
+
+   bool GestorInscripcion::existeInscripcion(int legajo, int idCurso)  {
+    Inscripcion Insc;
+    ArchivoManager archivo;
+    int pos = 0;
+
+
+    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, Insc, pos++)){
+        if (!Insc.getEliminado() && Insc.getLegajoAlumno() == legajo && Insc.getCurso() == idCurso){
+            return true;
+        }
+    }
+return false;
+}
+
 void GestorInscripcion::nuevaInscripcion() {
     while(true)
     {
         system("cls");
         int legajo;
         std::cout << "Ingrese legajo del alumno: "; std::cin >> legajo;
+        //validar alumno exista
+
+        if (!existeAlumno(legajo)){
+            std::cout << "Alumno insexistente o dado de baja";
+            system("pause");
+            continue;
+        }
 
         int idCurso;
         std::cout << "Ingrese ID del curso: "; std::cin >> idCurso;
+        //validar si existe el curso
+
+        if (!existeCurso(idCurso)){
+            std::cout << "Curso insexistente o dado de baja";
+            system("pause");
+            continue;
+        }
+            if (existeInscripcion(legajo, idCurso)){
+            std::cout << "El Alumno ya se ha inscripto a este curso";
+            system("pause");
+            continue;
+        }
 
         float importe;
         std::cout << "Ingrese el importe a abornar: "; std::cin >> importe;
 
+        if (importe <= 0){
+            std::cout << "El importe debe ser mayor a cero";
+            system("pause");
+            continue;
+        }
+        int opcion;
+
         std::string modalidad;
-        std::cout << "Modalidad de pago: "; std::cin >> modalidad;
+        std::cout << "Modalidad de pago: " <<std::endl;
+        std::cout << "1. Efectivo"<<std::endl;
+        std::cout << "2. Tarjeta Debito"<<std::endl;
+        std::cout << "3. Tarjeta Credito"<<std::endl;
+        std::cout << "Seleccione una opcion: "<<std::endl;
+        std::cin >> opcion;
+
+       switch (opcion){
+        case 1:
+            modalidad = "Efectivo";
+            break;
+        case 2:
+            modalidad = "Tarjeta Debito";
+            break;
+
+        case 3:
+            modalidad = "Tarjeta Credito";
+            break;
+            default:
+            std::cout << "Opcion de pago Invalida, seleccione la opcion correcta.";
+            system ("pause");
+            continue;
+       }
 
         int dia, mes, anio;
         std::cout << "Ingrese la fecha\nEl Dia: "; std::cin >> dia;
@@ -80,6 +171,7 @@ void GestorInscripcion::listarInscripciones() const {
     int pos{};
 
     ArchivoManager archivo;
+
     while (archivo.leerDeDisco(NOMBRE_ARCHIVO, inscripto, pos++))
     {
         if (!inscripto.getEliminado()) {
@@ -87,12 +179,133 @@ void GestorInscripcion::listarInscripciones() const {
             << " | Alumno: " << inscripto.getLegajoAlumno()
             << " | Curso: "  << std::setfill('0') << std::setw(4) << inscripto.getCurso()
             << " | Fecha: " << inscripto.getFechaInscripcion().mostrar()
+            << " | Importe: $ " << inscripto.getImporteAbonado()
             << "\n";
         }
     }
     std::cout << std::endl;
     system("pause");
 }
+
+
+ void  GestorInscripcion::modificarInscripciones(){
+     system("cls");
+      std::cout << "Ingrese el ID de la inscripcion a modificar: ";
+      int idBuscado = validation();
+
+      if (idBuscado == -1){
+        std::cout << "ID Invalido";
+        system("pause");
+        return;
+      }
+
+      ArchivoManager archivo;
+      Inscripcion registro;
+      int pos = 0;
+
+      while (archivo.leerDeDisco(NOMBRE_ARCHIVO,registro, pos )){
+        if (registro.getIdInscripcion() == idBuscado && !registro.getEliminado()){
+
+            std::cout << "Inscripcion encontrada: ";
+            std::cout << "Alumno: " << registro.getLegajoAlumno() << std::endl;
+            std::cout << "Curso: " << registro.getCurso() << std::endl;
+            std::cout << "Inporte actual: " << registro.getImporteAbonado() << std::endl;
+            std::cout << "Forma de pago: " << registro.getFormaDePago() << std::endl;
+
+            float nuevoImporte;
+            std::cout << "Nuevo Importe: ";
+            std::cin >> nuevoImporte;
+
+            if (nuevoImporte <= 0){
+                std::cout << " Importe invalido";
+                system ("pause");
+                return;
+            }
+            int opcion;
+            std::string modalidad;
+
+        std::cout << "Nueva forma de pago: " <<std::endl;
+        std::cout << "1. Efectivo"<<std::endl;
+        std::cout << "2. Tarjeta Debito"<<std::endl;
+        std::cout << "3. Tarjeta Credito"<<std::endl;
+        std::cout << "Seleccione una opcion: "<<std::endl;
+        std::cin >> opcion;
+
+        switch (opcion){
+        case 1:
+            modalidad = "Efectivo";
+            break;
+        case 2:
+            modalidad = "Tarjeta Debito";
+            break;
+
+        case 3:
+            modalidad = "Tarjeta Credito";
+            break;
+            default:
+            std::cout << "Opcion de pago Invalida, seleccione la opcion correcta.";
+            system ("pause");
+            continue;
+        }
+        registro.setImporteAbonado(nuevoImporte);
+        registro.setFormaDePago(modalidad);
+
+        archivo.sobrescribirRegistro(NOMBRE_ARCHIVO, registro, pos);
+
+       std::cout << "Inscripcion modificada con exito!";
+       system ("pause");
+        return;
+
+      }
+      pos++;
+ }
+        std::cout << "Inscripcion no encontrada!";
+       system ("pause");
+ }
+
+//////////////////////
+
+void GestorInscripcion::buscarInscripcionPorId()const {
+    system ("cls");
+
+    std::cout << "Ingrese el ID de la inscripcion a buscar: ";
+    int idBuscado = validation();
+
+    if (idBuscado == -1 ){
+        std::cout << "ID invalido";
+        system ("pause");
+        return;
+    }
+
+    ArchivoManager archivo;
+    Inscripcion inscripto;
+    int pos = 0;
+    bool encontrado = false;
+
+    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, inscripto, pos++)){
+        if (!inscripto.getEliminado() && inscripto.getIdInscripcion() == idBuscado){
+
+            std::cout << "INSCRIPCION ENCONTRADA"<< std::endl;
+            std::cout << "----------------------------------------"<< std::endl;
+            std::cout << "ID: " << inscripto.getIdInscripcion()<< std::endl;
+            std::cout << "Alumno (Legajo): " << inscripto.getLegajoAlumno()<< std::endl;
+            std::cout << "Curso ID: " << inscripto.getCurso()<< std::endl;
+            std::cout << "Fecha: " << inscripto.getFechaInscripcion().mostrar()<< std::endl;
+            std::cout << "Importe: $ " << inscripto.getImporteAbonado()<< std::endl;
+            std::cout << "Forma de pago: " << inscripto.getFormaDePago()<< std::endl;
+            std::cout << "----------------------------------------"<< std::endl;
+
+            encontrado = true;
+            break;
+        }
+    }
+    if (!encontrado) {
+        std::cout << "No se encontro la inscripcion con ese ID";
+    }
+
+    system ("pause");
+}
+
 
 void GestorInscripcion::backup() const {
     system("cls");
@@ -104,6 +317,51 @@ void GestorInscripcion::backup() const {
         std::cerr << "No se pudo realizar el BackUp!: \n"; system("pause");
     }
 }
+
+///////
+
+void GestorInscripcion::recuperarInscripcion(){
+    system("cls");
+    std::cout << "Ingrese el ID de la Inscripcion a recuperar: ";
+    int idBuscado = validation();
+
+    if (idBuscado == -1){
+        std::cout << "ID invalido";
+        system("pause");
+        return;
+    }
+
+    ArchivoManager archivo;
+    Inscripcion registro;
+    int pos =0;
+
+    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, registro, pos)){
+        if (registro.getIdInscripcion() == idBuscado && registro.getEliminado()){
+
+            std::cout << "Inscripcion encontrada: ";
+            std::cout << "Alumno: " << registro.getLegajoAlumno();
+            std::cout << "Curso: " << registro.getCurso();
+
+            char confirmacion;
+            std::cout << "Desea Recuerar la inscripcion? (S/N): ";
+            std::cin  >> confirmacion;
+
+            if (std::toupper(confirmacion) == 'S'){
+                registro.setEliminado (false);
+                archivo.sobrescribirRegistro(NOMBRE_ARCHIVO, registro, pos);
+                std::cout << "Inscripcion recuperada con exito!";
+            } else {
+                std::cout << "Operacion cancelada";
+            }
+                system("pause");
+        return;
+    }
+    pos++;
+        }
+        std::cout << "No se encontro inscripcion con ese ID";
+          system("pause");
+    }
+
 
 void GestorInscripcion::restaurar() const {
     system("cls");
@@ -132,9 +390,11 @@ void GestorInscripcion::darDeBaja() {
     int pos{0};
     bool encontrado{false};
 
-    //int cantidad{archivo.contarRegistrosInscripcion(NOMBRE_ARCHIVO)};
+  int cantidad{archivo.contarRegistrosInscripcion(NOMBRE_ARCHIVO)};
 
-    while (archivo.leerDeDisco(NOMBRE_ARCHIVO, registro, ++pos)) {
+    for (int pos =0; pos < cantidad; pos++) {
+
+            archivo.leerDeDisco(NOMBRE_ARCHIVO, registro, pos);
         std::cout << registro.getIdInscripcion() << '\n';
         if (registro.getIdInscripcion() == idBuscado) {
             registro.setEliminado(true);

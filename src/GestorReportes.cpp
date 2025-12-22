@@ -46,7 +46,7 @@ void GestorReportes::listarCursosPorDocente() {
     ArchivoManager archivo;
     int pos = 0;
 
-    cout << "------ CURSOS DISCTADOS POR EL DOCENTE" << legajo << "------";
+    cout << "------ CURSOS DISCTADOS POR EL DOCENTE " << legajo << "-------"<< endl ;
 
     while (archivo.leerDeDisco("cursos.dat", curso, pos++)) {
         if (!curso.getEliminado() && curso.getLegajoDocente() == legajo) {
@@ -59,6 +59,7 @@ void GestorReportes::listarCursosPorDocente() {
 }
 
 /*void GestorReportes::listarInscripcionesEntreFechas() {
+
 
 }*/
 
