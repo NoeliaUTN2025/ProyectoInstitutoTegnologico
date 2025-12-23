@@ -13,7 +13,7 @@ public:
 
      void listarAlumnosPorCurso();
      void listarCursosPorDocente();
-    // void listarInscripcionesEntreFechas();
+     void listarInscripcionesEntreFechas();
     void alumnosConMasInscripciones();
 
 };

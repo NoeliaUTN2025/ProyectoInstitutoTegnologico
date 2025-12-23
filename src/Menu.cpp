@@ -197,8 +197,8 @@ void Menu::menuReports()const {
 
     std::string menuOptions[]{
         "REPORTES Y CONSULTAS", "1. Listar alumnos por curso",
-        "2. Listar cursos por docente", "3. Listar inscripciones entre fechas",
-        "4. Alumnos con más inscripciones", "0. Volver al menú principal" };
+        "2. Listar cursos por docente", "3. Listar todas las inscripciones","4. Listar inscripciones entre fechas",
+        "5. Alumnos con más inscripciones", "0. Volver al menú principal" };
 
         int arrayLength{ sizeof(menuOptions) / sizeof(std::string) };
 
@@ -213,7 +213,8 @@ void Menu::menuReports()const {
             case 1: gestorR.listarAlumnosPorCurso(); break;
             case 2: gestorR.listarCursosPorDocente(); break;
             case 3: gestor.listarInscripciones(); break;
-            case 4: gestorR.alumnosConMasInscripciones(); break;
+            case 4: gestorR.listarInscripcionesEntreFechas(); break;
+            case 5: gestorR.alumnosConMasInscripciones(); break;
             case 0: break;
             default: std::cout << "Opcion invalida!\n";
             std::cout << "Presione ENTER continuar...";
@@ -408,7 +409,7 @@ void Menu::menuBaja() const {
         switch (option) {
             case 1: gestor.darDeBaja(); break;
             case 2: menuRestaurar(); break;
-            case 3: //realizarBackup(); break;
+            case 3: menuRealizarBackup(); break;
             case 4: menuRestaurar(); break;
             case 0: break;
             default: std::cout << "Opcion invalida!\n";

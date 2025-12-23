@@ -28,6 +28,7 @@ public:
     void nuevaInscripcion();
     int obtenerUltimoId();
     void listarInscripciones() const;
+    void listarInscripcionesEntreFechas();
     void modificarInscripciones();
     void buscarInscripcionPorId() const;
     void recuperarInscripcion();
